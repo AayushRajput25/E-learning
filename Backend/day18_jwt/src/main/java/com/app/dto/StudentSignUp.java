@@ -52,7 +52,7 @@ public class StudentSignUp {
 	@Column(length = 200)
 	private String address;
 
-	private LocalDate joiningDate;
+//	private LocalDate joiningDate;
 	
 //	private MultipartFile profilePic;
 

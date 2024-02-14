@@ -1,6 +1,8 @@
 package com.app.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import javax.persistence.*;
 //import javax.persistence.Column;
 //import javax.persistence.Entity;
@@ -26,7 +28,6 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Students extends BaseEntity{
 	
 	@Column(length = 50)
@@ -47,7 +48,7 @@ public class Students extends BaseEntity{
 	@Lob
 	private byte[] profilePic;
 	
-	private LocalDate joiningDate;
+	private LocalDate joiningDate = LocalDate.now();
 	
 	@OneToOne
 	@JoinColumn(name = "student_id",nullable = false)

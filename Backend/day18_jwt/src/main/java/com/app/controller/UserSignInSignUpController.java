@@ -19,6 +19,8 @@ import com.app.dto.TeacherSignUp;
 import com.app.security.JwtUtils;
 import com.app.service.UserService;
 
+import io.swagger.v3.oas.models.responses.ApiResponse;
+
 @RestController
 @RequestMapping("/users")
 public class UserSignInSignUpController {
@@ -56,14 +58,19 @@ public class UserSignInSignUpController {
 		// i/f --> Authentication --> imple by UsernamePasswordAuthToken
 		// throws exc OR rets : verified credentials (UserDetails i.pl class: custom
 		// user details)
+		try {
+			Authentication verifiedAuth = mgr
+					.authenticate(new UsernamePasswordAuthenticationToken(reqDTO.getEmail(), reqDTO.getPassword()));
+			System.out.println(verifiedAuth.getClass());// Custom user details
+			// => auth success
 
-		Authentication verifiedAuth = mgr
-				.authenticate(new UsernamePasswordAuthenticationToken(reqDTO.getEmail(), reqDTO.getPassword()));
-		System.out.println(verifiedAuth.getClass());// Custom user details
-		// => auth success
-
-		return ResponseEntity
-				.ok(new SigninResponse(utils.generateJwtToken(verifiedAuth), "Successful Authentication!!!"));
+			return ResponseEntity
+					.ok(new SigninResponse(utils.generateJwtToken(verifiedAuth), "Successful Authentication!!"));
+		} catch (Exception e) {
+			SigninResponse err = new SigninResponse("","Inavalid credentials!!");
+			return ResponseEntity.ok(err);
+		}
+		
 
 	}
 
