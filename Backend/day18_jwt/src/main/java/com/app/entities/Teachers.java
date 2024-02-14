@@ -1,5 +1,8 @@
 package com.app.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 //import javax.persistence.Column;
 //import javax.persistence.Entity;
@@ -10,6 +13,8 @@ import javax.persistence.*;
 //import javax.persistence.MapsId;
 //import javax.persistence.OneToOne;
 //import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -50,9 +55,25 @@ public class Teachers extends BaseEntity{
 	@Column(length = 100)
 	private String specialization;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "teachers_id",nullable = false)
 	@MapsId
 	private UserEntity tId;
+	
+	@OneToMany(mappedBy = "tId",cascade = CascadeType.ALL)
+	private List<Courses> courses = new ArrayList<>();
+	
+	// helper method : to add course
+	public void addCourse(Courses c) {		
+		this.courses.add(c);// can navigate from parent --> child
+		c.setTId(this);// can navigate from child --> parent
+	}
+
+	// helper method : to remove course
+	public void removeCourse(Courses c) {
+		this.courses.remove(c);
+		c.setTId(null);
+	}
+	
 	
 }
