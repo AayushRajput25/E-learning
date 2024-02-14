@@ -1,6 +1,7 @@
 package com.app.dto;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,20 +10,20 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
+@Service
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
+@AllArgsConstructor
+@Setter
+public class ContentGetDto {
 
-public class CoursesDto {
-	
-	@Length(max = 100)
-	private String courseName;
+    @Length (max= 100)
+    private String title;
 
-	@Length(max = 4000)
-	private String description;
+    
+    private String filePath;
+   
+    private String description;
 	
-//	@JsonProperty(access = Access.READ_ONLY)
-//	private Teachers tId;
-//	
+	
 }
