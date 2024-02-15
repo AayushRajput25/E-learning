@@ -8,14 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.resource.AppCacheManifestTransformer;
+
 import com.app.dto.SigninRequest;
 import com.app.dto.SigninResponse;
 import com.app.dto.StudentSignUp;
 import com.app.dto.TeacherSignUp;
+import com.app.security.CustomUserDetails;
 import com.app.security.JwtUtils;
 import com.app.service.UserService;
 
@@ -23,6 +28,7 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin("*")
 public class UserSignInSignUpController {
 	@Autowired
 	private UserService userService;
@@ -51,7 +57,7 @@ public class UserSignInSignUpController {
 	 * 401
 	 */
 	@PostMapping("/signin")
-	public ResponseEntity<?> signinUser(@RequestBody @Valid SigninRequest reqDTO) {
+	public ResponseEntity<?> signinUser(@RequestBody @Valid SigninRequest reqDTO,Authentication auth) {
 		System.out.println("in signin " + reqDTO);
 		// simply invoke authentucate(...) on AuthMgr
 		// i/p : Authentication => un verifed credentials
@@ -63,9 +69,14 @@ public class UserSignInSignUpController {
 					.authenticate(new UsernamePasswordAuthenticationToken(reqDTO.getEmail(), reqDTO.getPassword()));
 			System.out.println(verifiedAuth.getClass());// Custom user details
 			// => auth success
-
+			
+			
+			String token = utils.generateJwtToken(verifiedAuth);
+//			CustomUserDetails user = (CustomUserDetails) auth.getPrincipal();
+//			System.out.println("FINDING ID = "+ user.getId());
+//			
 			return ResponseEntity
-					.ok(new SigninResponse(utils.generateJwtToken(verifiedAuth), "Successful Authentication!!"));
+					.ok(new SigninResponse(token, "Successful Authentication!!"));
 		} catch (Exception e) {
 			SigninResponse err = new SigninResponse("","Inavalid credentials!!");
 			return ResponseEntity.ok(err);

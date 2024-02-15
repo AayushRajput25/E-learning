@@ -2,6 +2,7 @@ package com.app.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.*;
 //import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.*;
 //import javax.persistence.MapsId;
 //import javax.persistence.OneToOne;
 //import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -55,5 +58,19 @@ public class Students extends BaseEntity{
 	@MapsId
 	private UserEntity sId;
 	
+	@OneToMany(mappedBy = "sid",cascade = CascadeType.ALL)
+	private List<Enrollment> enrollmentNo;
+	
+	 // helper method : to add Enrollment
+ 	public void addCourse(Enrollment e) {		
+ 		this.enrollmentNo.add(e);// can navigate from parent --> child
+ 		e.setSid(this);// can navigate from child --> parent
+ 	}
+
+ 	// helper method : to remove Enrollment
+ 	public void removeCourse(Enrollment e) {
+ 		this.enrollmentNo.remove(e);
+ 		e.setSid(null);
+ 	}
 	
 }

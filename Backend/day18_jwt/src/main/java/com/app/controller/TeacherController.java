@@ -1,7 +1,13 @@
 package com.app.controller;
 
-import java.io.IOException;
+import static org.springframework.http.MediaType.IMAGE_GIF_VALUE;
+import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
+import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +23,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +31,7 @@ import com.app.dto.ApiResponse;
 import com.app.dto.ContentDescDto;
 import com.app.dto.ContentGetDto;
 import com.app.dto.CoursesDto;
+import com.app.dto.EditCourseDto;
 import com.app.dto.StudentDetailDTO;
 import com.app.dto.TeacherDetailResponseDto;
 import com.app.entities.Content;
@@ -84,7 +92,7 @@ public class TeacherController {
 	public ResponseEntity<?> deleteCourse(@PathVariable @NotNull Long CourseId)
 	{
 		System.out.println("in delete Courese " + CourseId);
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(teacher.deleteCourseById(CourseId));
+		return ResponseEntity.ok(teacher.deleteCourseById(CourseId));
 	}
 	
 	@PostMapping("/course/content/{CourseId}")
@@ -102,14 +110,61 @@ public class TeacherController {
 				.body(uploadImage);
 	}
 	
-	@GetMapping("/course/content/{contentId}")
+	@GetMapping("/course/content/{contentId}")  
 	public ResponseEntity<ContentGetDto> coureseContentById(@PathVariable @NotNull Long contentId)
 	{
 		System.out.println("in Get Content"+ contentId);
 		return ResponseEntity.ok(course.contentBYId(contentId));
 	}
 	
+	@GetMapping("/course_content/{CourseId}")  // getting all contents assosiated with a course 
+	public ResponseEntity<?> getContentBYContentId(@PathVariable @NotNull Long CourseId)
+	{
+		System.out.println("in get content by course id" + CourseId);
+		return ResponseEntity.ok(course.getCoursesById(CourseId));
+	}
+
+	@GetMapping("/enroll/{teacherId}")
+	public ResponseEntity<?> getStudentsForTeachers(@PathVariable @NotNull Long teacherId)
+	{
+		System.out.println("in get students by TeacherID ="+teacherId);
+		return ResponseEntity.ok(teacher.studentsForTeachers(teacherId));
+	}
 	
+	@DeleteMapping("/course/content/{contentId}")  // deleting the co
+	public ResponseEntity<?> deleteContentById(@PathVariable @NotNull Long contentId)
+	{
+		System.out.println("in get delete by course id" + contentId);
+		return ResponseEntity.ok(course.deleteByCourseId(contentId));
+	}
 	
+	@PostMapping(value="/images/{teacherId}",consumes = "multipart/form-data")
+	public ResponseEntity<?> uploadImage(@PathVariable Long teacherId, @RequestParam MultipartFile imageFile)
+			throws IOException, java.io.IOException {
+		System.out.println("in upload img " + teacherId);
+		return ResponseEntity.status(HttpStatus.CREATED).body(teacher.uploadImage(teacherId, imageFile));
+	}
+	
+	@GetMapping(value = "/images/{teacherId}", produces = { IMAGE_GIF_VALUE, IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE })
+	public ResponseEntity<?> serveTeacherImage(@PathVariable Long teacherId) throws IOException, java.io.IOException {
+		System.out.println("in download img " + teacherId);
+		return ResponseEntity.ok(teacher.downloadImage(teacherId));
+	}
+	
+	@PutMapping("/course/{teacherId}") // to update course title and desc for course associated by teacher
+	public ResponseEntity<?> editCourse(@PathVariable @NotNull Long teacherId, @RequestBody @Valid EditCourseDto course)
+	{
+		System.out.println("to edit detail of courseId =" + course.getId()+" of teacherId ="+ teacherId);
+		return ResponseEntity.ok(teacher.editContentByTID(teacherId,course));
+	}
+	
+//	@PutMapping("/course/content/{contentId}")
+//	public ResponseEntity<?> editCourseContent(@PathVariable @NotNull Long teacherId, @RequestBody @Valid EditCourseDto course)
+//	{
+//		System.out.println("to edit detail of courseId =" + course.getId()+" of teacherId ="+ teacherId);
+//		return ResponseEntity.ok(teacher.editContentByTID(teacherId,course));
+//	}
+//	
+//	
 	
 }

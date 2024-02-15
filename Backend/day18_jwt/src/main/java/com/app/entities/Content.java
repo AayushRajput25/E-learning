@@ -3,9 +3,17 @@ package com.app.entities;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "content")
@@ -13,16 +21,19 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Content {
+@Getter
+@Setter
+public class Content{
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "content_id")
     private Long id;
 
     @ManyToOne
 	@JoinColumn(name = "course_id",nullable = false)
-	private Courses cId;
+    @JsonIgnore
+	private Courses cid;
     
     @Column(name = "title",length = 100)
     private String title;
@@ -32,7 +43,9 @@ public class Content {
     
     @Column(name = "description",columnDefinition="TEXT")
     private String description;
-
-
    
+    @OneToMany(mappedBy = "cid",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Enrollment> enrollmentNo;
+    
 }

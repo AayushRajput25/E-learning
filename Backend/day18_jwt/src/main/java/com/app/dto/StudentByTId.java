@@ -1,0 +1,8 @@
+package com.app.dto;
+
+public interface StudentByTId {
+
+	String getName();
+	
+	Long getStudent_id();
+}

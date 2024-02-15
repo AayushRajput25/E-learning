@@ -18,5 +18,4 @@ public interface CourseDao extends JpaRepository<Courses, Long>{
 	@Query ("select c from Courses c where c.tId = :t")
 	List<Courses> findkarleBhai(Teachers t);
 	
-	
 }

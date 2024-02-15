@@ -1,10 +1,12 @@
 package com.app.security;
 
+import java.net.http.HttpRequest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -42,9 +44,10 @@ public class SecurityConfig {
 		.disable().
 		authorizeRequests()
 		.antMatchers("/products/view","/users/student_signup","/users/signin","/users/teacher_signup",
-				"/v*/api-doc*/**","/swagger-ui/**","/student/**","/teacher/**").permitAll()
+				"/v*/api-doc*/**","/swagger-ui/**","/student/**","/teacher/**","/home/**","/admin/**").permitAll()
 		.antMatchers("/products/purchase").hasRole("CUSTOMER")
 		.antMatchers("/products/add").hasRole("ADMIN")
+		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 //		.antMatchers("/student/{studentID}").hasRole("STUDENT")
 		.anyRequest().authenticated()
 		.and()
@@ -54,6 +57,8 @@ public class SecurityConfig {
 		and()
 		//inserting jwt filter before sec filter
 		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+		http.cors();
+		
 	
 		return http.build();
 	}
