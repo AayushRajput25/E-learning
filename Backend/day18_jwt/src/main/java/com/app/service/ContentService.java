@@ -25,5 +25,6 @@ public interface ContentService {
 
 	ApiResponse deleteByCourseId(@NotNull Long contentId);
 
+	ApiResponse courseNameById(@NotNull Long courseId);
 
 }

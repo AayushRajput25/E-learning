@@ -167,4 +167,12 @@ public class TeacherController {
 //	
 //	
 	
+	@GetMapping("/Course/name/{CourseId}")
+	public ResponseEntity<?> courseName(@PathVariable @NotNull Long CourseId)
+	{
+		System.out.println("in get course name by course id" + CourseId);
+		return ResponseEntity.ok(course.courseNameById(CourseId));	
+	}
+	
+	
 }
