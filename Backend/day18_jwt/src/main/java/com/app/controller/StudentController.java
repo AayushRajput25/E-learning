@@ -1,9 +1,11 @@
 package com.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +20,8 @@ import static org.springframework.http.MediaType.IMAGE_GIF_VALUE;
 import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
+import javax.validation.constraints.NotNull;
+
 import com.app.dto.StudentDetailDTO;
 import com.app.dto.StudentSignUp;
 import com.app.service.StudentService;
@@ -26,6 +30,8 @@ import io.jsonwebtoken.io.IOException;
 
 @RestController
 @RequestMapping("/student")
+@CrossOrigin("*")
+
 public class StudentController {
 
 	@Autowired
@@ -45,9 +51,10 @@ public class StudentController {
 	}
 	
 //	@PreAuthorize("hasRole('STUDENT')")
-	@GetMapping (value = "/{studentID}")
+	@GetMapping (value = "/{studentID}") // getting students by id
 	public ResponseEntity<?> studentDetails(@PathVariable Long studentID){
 		System.out.println("in get Student"+studentID);
+//		System.out.println(auth.getPrincipal());						//getting email from jwt token
 		return ResponseEntity.ok(student.getDetailsByID(studentID));
 	}
 		
@@ -62,5 +69,25 @@ public class StudentController {
 		System.out.println("to delete "+studentID);
 		return ResponseEntity.ok(student.deleteByID(studentID));
 	}
-		
+	
+	@PostMapping("/enroll/{studentID}/{courseID}")
+	public ResponseEntity<?> enrollInCourse(@PathVariable @NotNull Long studentID, @PathVariable @NotNull Long courseID)
+	{
+		System.out.println("enroll by StudentID ="+studentID + "CourseID ="+courseID);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(student.enrollByIds(studentID,courseID));
+	}
+	
+	@GetMapping("/enroll/{studentID}")
+	public ResponseEntity<?> getMyCourses(@PathVariable Long studentID)
+	{
+		System.out.println("To get courses for "+ studentID);
+		return ResponseEntity.ok(student.getMyCourses(studentID));
+	}
+	
+	@DeleteMapping("/enroll/{enrollmentId}")
+	public ResponseEntity<?> unenrollFromCourse(@PathVariable @NotNull Long enrollmentId)
+	{
+		System.out.println("To Unenroll from "+enrollmentId);
+		return ResponseEntity.ok(student.unenrollByID(enrollmentId));
+	}
 }

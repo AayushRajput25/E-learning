@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dao.StudentDao;
 import com.app.dao.TeacherDao;
 import com.app.dao.UserEntityDao;
 import com.app.dto.Signup;
 import com.app.dto.StudentSignUp;
 import com.app.dto.TeacherSignUp;
+import com.app.dto.UserDetailDto;
 import com.app.entities.Students;
 import com.app.entities.Teachers;
 import com.app.entities.UserEntity;
@@ -62,6 +64,30 @@ public class UserServiceImpl implements UserService {
 		reg = mapper.map(teacherDao.save(teacher), TeacherSignUp.class) ;
 		
 		return reg;
+	}
+
+	@Override
+	public UserDetailDto getDetialByEmail(String email) {
+		// TODO Auto-generated method stub
+		UserEntity u =  userDao.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("Invalid user"));
+	
+		Long id = u.getId();
+		
+		if (u.getRole().name()=="STUDENT") {
+			Students s= studentDao.getById(id);
+			UserDetailDto res = mapper.map(s, UserDetailDto.class);
+			res.setEmail(u.getEmail());
+			res.setRole(u.getRole());
+			return res;
+		}
+		else if (u.getRole().name()=="TEACHER") {
+			Teachers t = teacherDao.getById(id);
+			UserDetailDto res = mapper.map(t, UserDetailDto.class);
+			res.setEmail(u.getEmail());
+			res.setRole(u.getRole());
+			return res;
+		}
+		return null;
 	}
 
 }

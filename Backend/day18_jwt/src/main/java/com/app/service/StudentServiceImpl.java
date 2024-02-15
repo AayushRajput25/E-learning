@@ -1,23 +1,46 @@
 package com.app.service;
 
 import java.io.IOException;
+import java.util.List;
+import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.custom_exceptions.ResourceNotFoundException;
+import com.app.dao.CourseDao;
+import com.app.dao.EnrollmentDao;
 import com.app.dao.StudentDao;
+import com.app.dao.UserEntityDao;
 import com.app.dto.ApiResponse;
 import com.app.dto.StudentDetailDTO;
+import com.app.dto.TeacherDetailResponseDto;
+import com.app.dto.EnrolledCoursesDto;
+import com.app.entities.Courses;
+import com.app.entities.Enrollment;
 import com.app.entities.Students;
+import com.app.entities.Teachers;
+import com.app.entities.UserEntity;
 
 @Service
+@Transactional
 public class StudentServiceImpl implements StudentService {
 	
 	@Autowired
+	private UserEntityDao uDao;
+	
+	@Autowired
 	private StudentDao dao;
+	
+	@Autowired
+	private EnrollmentDao eDao;
+	
+	@Autowired
+	private CourseDao cDao;
 	
 	@Autowired
 	private ModelMapper mapper;
@@ -45,7 +68,12 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public StudentDetailDTO getDetailsByID(long studentID) {
-		return mapper.map(dao.findById(studentID).orElseThrow(()-> new ResourceNotFoundException("Invalid Student Id")),StudentDetailDTO.class);
+		UserEntity u = uDao.findById(studentID).orElseThrow(()-> new ResourceNotFoundException("student Not found"));
+		Students s = dao.findById(studentID).orElseThrow(()-> new ResourceNotFoundException("student Not found"));
+		StudentDetailDTO res = mapper.map(s, StudentDetailDTO.class);
+		res.setRole(u.getRole());
+//		System.out.println(res.toString());
+		return res;
 	}
 
 	@Override
@@ -69,11 +97,53 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public ApiResponse deleteByID(Long studentID) {
-		if(dao.existsById(studentID)) {
+		if(dao.existsById(studentID) && uDao.existsById(studentID)) {
 			dao.deleteById(studentID);
+			uDao.deleteById(studentID);
 			return new ApiResponse("deleted succesfully");
 		}
 		return new ApiResponse("deletion failed");
+	}
+
+
+	@Override
+	public ApiResponse enrollByIds(@NotNull Long studentID, @NotNull Long courseID) {
+		// TODO Auto-generated method stub
+		Students s = dao.getById(studentID);
+		Courses c = cDao.getById(courseID);
+		if (s != null && c != null) {
+			Enrollment e = new Enrollment(c,s);
+			eDao.save(e);
+			return new ApiResponse("Successfull Enrolled");
+		}	
+		
+		return new ApiResponse("Failed to enroll");
+	}
+
+	@Override
+	public List<EnrolledCoursesDto> getMyCourses(Long studentID) {
+		
+		Students s = dao.getById(studentID);	
+		return eDao.findAllEnrolledCourses(s);
+	}
+
+
+	@Override
+	public ApiResponse unenrollByID(@NotNull Long enrollmentId) {
+		if (eDao.existsById(enrollmentId)) {
+			eDao.deleteById(enrollmentId);
+			return new ApiResponse("deleted Successfull");
+		}
+		return new ApiResponse("deletion failed");
+	}
+	
+	@Override
+	public List<StudentDetailDTO> getAllStudent() { // to get all teachers registed for admin
+		
+		List<Students> reslist = dao.findAll();
+		
+		List<StudentDetailDTO> entityToDto = mapper.map(reslist, new TypeToken<List<StudentDetailDTO>>(){}.getType());
+		return entityToDto;
 	}
 	
 
