@@ -13,6 +13,7 @@ import StudentSignUpPage from './Pages/StudentSignUpPage';
 import TeacherSignUpPage from './Pages/TeacherSignUpPage';
 import CourseCard from './components/CourseCard';
 import ContactPage from './Pages/ContactPage';
+import StudentDashboard from './components/StudentDasboard';
 
 
 function App() {
@@ -28,6 +29,8 @@ function App() {
             <Route path="/student_signup" element={<StudentSignUpPage />} />
             <Route path="/teacher_signup" element={<TeacherSignUpPage />} />
             <Route path="/contact" element={<ContactPage/>} />
+            <Route path="/student_dashboard" element={<StudentDashboard/>} />
+
 
           </Routes> 
         </Router>

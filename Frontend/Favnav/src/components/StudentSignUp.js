@@ -29,18 +29,7 @@ function StudentSignUp() {
     try {
       const response = await axios.post('http://localhost:8080/users/student_signup', userData);
       console.log(response.data);
-      // Reset the form after successful submission
-      // setUserData({
-      //   name: "",
-      //   age: 20,
-      //   gender: "Male",
-      //   phoneNo: "",
-      //   email: "",
-      //   password: "",
-      //   address: "",
-      //   joiningDate: ""
-      // });
-      // Redirect to login page after successful submission
+      
       navigate('/login');
     } catch (error) {
       console.error('Error:', error);

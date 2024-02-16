@@ -1,20 +1,29 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = {
-      email: email,
-      password: password
-    };
-    console.log(userData);
-    setEmail("");
-    setPassword("");
-    // Abhi k liye data console pe print 
+    try {
+      const response = await axios.post('http://localhost:8080/users/signin', {
+        email,
+        password
+      });
+      const { jwt, message } = response.data;
+      // Save email, jwt, and message to sessionStorage
+      sessionStorage.setItem('email', email);
+      sessionStorage.setItem('jwt', jwt);
+      sessionStorage.setItem('message', message);
+      console.log('Response:', response.data);
+      // Redirect or perform any other actions as needed
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle error
+    }
   };
 
   return (
