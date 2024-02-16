@@ -47,14 +47,14 @@ public class ContentServiceImpl implements ContentService{
 
 	
 //	private final String FOLDER_PATH="/home/sunbeam/Desktop/files/";
-	private final String FOLDER_PATH="/home/sunbeam/Desktop/frontEnd/my-react-app/public/Videos/";
+	private final String FOLDER_PATH="/home/sunbeam/Desktop/Project/my-react-app/public/Video/";
 
 	@Override
 	public ApiResponse uploadImageToFileSystem(MultipartFile file, Long contentId) throws IOException {
 		Content content = contentDao.findById(contentId).orElseThrow(()-> new ResourceNotFoundException("Course Not exist"));
 //		String filePath=FOLDER_PATH+file.getOriginalFilename();
 		String filePath=FOLDER_PATH+file.getOriginalFilename();
-		String uri = "./Videos/"+file.getOriginalFilename();
+		String uri = "/Video/"+file.getOriginalFilename();
 //		content.setFilePath(filePath);
 		content.setFilePath(uri);
 //		content.setTitle(file.getOriginalFilename());
@@ -97,6 +97,15 @@ public class ContentServiceImpl implements ContentService{
 		}
 		
 		return new ApiResponse("deletion failed");
+	}
+
+	@Override
+	public ApiResponse courseNameById(@NotNull Long courseId) {
+		if(cDao.existsById(courseId)) {
+			Courses c = cDao.getById(courseId);
+			return new ApiResponse(c.getCourseName());
+		}
+		return new ApiResponse("Course Name not found");
 	}
 
 		

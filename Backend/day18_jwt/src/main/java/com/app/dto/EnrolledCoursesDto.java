@@ -9,4 +9,5 @@ public interface EnrolledCoursesDto {
 	String getDes();
 
 	Long getEId();
+	
 }
