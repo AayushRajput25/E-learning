@@ -7,4 +7,6 @@ public interface StudentByTId {
 	Long getStudent_id();
 	
 	String getCourse_name();
+	
+	Long getEnrollmentId();
 }
