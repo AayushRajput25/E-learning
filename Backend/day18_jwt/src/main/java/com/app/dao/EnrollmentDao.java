@@ -27,7 +27,7 @@ public interface EnrollmentDao extends JpaRepository<Enrollment, Long>{
 //    @Query("select e from Enrollment e where e.sid = 2")
 //    List<Enrollment> findBy(Students s);
 
-	@Query(value = "select students.name as name, enrollment.student_id as student_id from students, enrollment, course where students.student_id = enrollment.student_id and enrollment.course_id= course.id and course.teacher_id=?1 group by enrollment.student_id;",nativeQuery = true)
+	@Query(value = "select students.name as name, enrollment.student_id as student_id, course.course_name as course_name from students, enrollment, course where students.student_id = enrollment.student_id and enrollment.course_id = course.id and course.teacher_id = ?1 ;",nativeQuery = true)
 	List<StudentByTId> studentEnrolled(@NotNull Long teacherId);
 	
 }
