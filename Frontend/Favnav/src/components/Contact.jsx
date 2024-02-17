@@ -5,6 +5,26 @@ const purl = "./Pictures/nModi.jpg";
 const linkedinUrl = "https://www.linkedin.com/in/example";
 const githubUrl = "https://github.com/example";
 
+const AshishPurl = "./Pictures/contactPics/ashCP.jpeg";
+const AshishLinkedinUrl = "https://www.linkedin.com/in/example";
+const AshishGithubUrl = "https://github.com/example";
+
+const AyushPurl = "./Pictures/contactPics/ayushCP.jpeg";
+const AyushLinkedinUrl = "https://www.linkedin.com/in/example";
+const AyushGithubUrl = "https://github.com/example";
+
+const UtkarshPurl = "./Pictures/contactPics/utkarshCP.jpeg";
+const UtkarshLinkedinUrl = "https://www.linkedin.com/in/example";
+const UtkarshGithubUrl = "https://github.com/example";
+
+const HarshPurl = "./Pictures/contactPics/harshCP.jpeg";
+const HarshLinkedinUrl = "https://www.linkedin.com/in/example";
+const HarshGithubUrl = "https://github.com/example";
+
+
+
+
+
 function Contact() {
   return (
     <div style={{ backgroundImage: `url(./Pictures/backKliye.png)`, backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh' }}>
@@ -16,7 +36,7 @@ function Contact() {
           <Row>
             <Col xs={12} md={6}>
               <div>
-                <div>Email: sample@example.com</div>
+                <div>Email: ayush25rajput@gmail.com</div>
               </div>
               <div>
                 <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
@@ -37,7 +57,7 @@ function Contact() {
                   <label></label>
                 </Col>
                 <Col xs={6} md={12} className="text-center">
-                  <img src={purl} alt="Photo" className="img-fluid" style={{ width: '100px', height: '100px' }} />
+                  <img src={AyushPurl} alt="Photo" className="img-fluid" style={{ width: '100px', height: '100px' }} />
                 </Col>
               </Row>
             </Col>
@@ -47,7 +67,7 @@ function Contact() {
           <Row>
             <Col xs={12} md={6}>
               <div>
-                <div>Email: sample@example.com</div>
+                <div>Email: ashsharma612@gmail.com</div>
               </div>
               <div>
                 <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
@@ -68,7 +88,7 @@ function Contact() {
                   <label></label>
                 </Col>
                 <Col xs={6} md={12} className="text-center">
-                  <img src={purl} alt="Photo" className="img-fluid" style={{ width: '100px', height: '100px' }} />
+                  <img src={AshishPurl} alt="Photo" className="img-fluid" style={{ width: '100px', height: '100px' }} />
                 </Col>
               </Row>
             </Col>
@@ -78,7 +98,7 @@ function Contact() {
           <Row>
             <Col xs={12} md={6}>
               <div>
-                <div>Email: sample@example.com</div>
+                <div>Email: harshrathore493@gmail.com</div>
               </div>
               <div>
                 <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
@@ -99,7 +119,7 @@ function Contact() {
                   <label></label>
                 </Col>
                 <Col xs={6} md={12} className="text-center">
-                  <img src={purl} alt="Photo" className="img-fluid" style={{ width: '100px', height: '100px' }} />
+                  <img src={HarshPurl} alt="Photo" className="img-fluid" style={{ width: '100px', height: '100px' }} />
                 </Col>
               </Row>
             </Col>
@@ -109,7 +129,7 @@ function Contact() {
           <Row>
             <Col xs={12} md={6}>
               <div>
-                <div>Email: sample@example.com</div>
+                <div>Email: utkarsh217s@gmail.com</div>
               </div>
               <div>
                 <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
@@ -130,7 +150,7 @@ function Contact() {
                   <label></label>
                 </Col>
                 <Col xs={6} md={12} className="text-center">
-                  <img src={purl} alt="Photo" className="img-fluid" style={{ width: '100px', height: '100px' }} />
+                  <img src={UtkarshPurl} alt="Photo" className="img-fluid" style={{ width: '100px', height: '100px' }} />
                 </Col>
               </Row>
             </Col>
