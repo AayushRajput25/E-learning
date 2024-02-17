@@ -30,6 +30,7 @@ import Addcourse from "../Addcourse";
 import Allcourse from "../Allcourses";
 import { useContext } from "react";
 import FetchStudents from "./MyStudents";
+import TecherDashboard from "./TecherDashboard"
 const Teacher = () => {
 const [refValue, setRefValue] = useState("");
 const [conditionn, setCondition] = useState("-1");
@@ -44,9 +45,6 @@ axios.get("http://localhost:8080/home/"+ email, {
 }).then((Response) => {setRefValue(Response.data)})
 }, [email, Authorizationn])
 
-const change = () => {
-    setCondition("0")
-}
 
 const [isOpen, setIsOpen] = useState(false);
 
@@ -63,7 +61,10 @@ const [isOpen, setIsOpen] = useState(false);
   }
 
   function YourComponent() {
-    if (conditionn === "0") {
+     if (conditionn === "-1") {
+     return <TecherDashboard/>
+     }
+    else if (conditionn === "0") {
      return <Addcourse/>
     } else if (conditionn === "1"){
       return <Allcourse/>
