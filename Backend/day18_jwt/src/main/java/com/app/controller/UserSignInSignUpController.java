@@ -57,7 +57,7 @@ public class UserSignInSignUpController {
 	 * 401
 	 */
 	@PostMapping("/signin")
-	public ResponseEntity<?> signinUser(@RequestBody @Valid SigninRequest reqDTO,Authentication auth) {
+	public ResponseEntity<?> signinUser(@RequestBody @Valid SigninRequest reqDTO,Authentication auth) { // signin  to check 
 		System.out.println("in signin " + reqDTO);
 		// simply invoke authentucate(...) on AuthMgr
 		// i/p : Authentication => un verifed credentials
