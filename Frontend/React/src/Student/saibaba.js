@@ -9,13 +9,19 @@ import TeacherSignUp from '../SignupLogin/TeacherSignUp'
 import StudentSignUp from '../SignupLogin/StudentSignUp'
 import Content from '../Teacher Content/Content'
 import App from "../App"
-import Home from '../Home'
+
 import Addcourse from '../Addcourse'
 import Allcourse from '../Allcourses'
 import Student from '../Students'
 import TeacherMainPage from "../Teacher Content/TeacherMainPage"
 import Addcontent from '../Teacher Content/AddContent'
 import FetchStudents from '../Teacher Content/MyStudents'
+import StudentDashboard from '../Pages/StudentPages/StudentDashboard'
+import StudentCourses from '../Pages/StudentPages/StudentCourses'
+import EditStudent from '../Pages/StudentPages/EditStudent'
+import Home from '../Pages/Home'
+import ContactPage from '../Pages/ContactPagr'
+import About from '../Pages/About'
 
 function SaiBaba() {
  
@@ -23,7 +29,6 @@ function SaiBaba() {
   return (
     <div className='container-fluid'>
       <Routes>
-        <Route index element={<SignIn />} />
         <Route path='/' Component={SignIn} />
         <Route path='/Home' Component={Home} />
         <Route path='/Mystudents' Component={FetchStudents} />
@@ -40,6 +45,13 @@ function SaiBaba() {
        <Route path="/TeacherMainPage" Component={TeacherMainPage} exact />
        <Route path="/contents" Component={Content} exact />
        <Route path="/AddContent" Component={Addcontent} exact />
+       <Route path="/StudentMainPage" Component={StudentDashboard} exact />
+       <Route path="/my_courses" Component={StudentCourses} exact />
+       <Route path="/home" Component={Home} exact />
+       <Route path="/edit_student" Component={EditStudent} exact />
+       <Route path="/contact" Component={ContactPage} exact />
+       <Route path="/about" Component={About} exact />
+       <Route path="/login" Component={SignIn} exact />
       </Routes>
       <ToastContainer />
     </div>

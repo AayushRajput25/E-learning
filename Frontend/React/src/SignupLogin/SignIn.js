@@ -9,6 +9,8 @@ import { redirect } from "react-router-dom";
 import MainPage from './MainPage';
 import { useNavigate , Link} from "react-router-dom";
 import TeacherSignUp from "./TeacherSignUp"
+import StudentDashboard from "../Pages/StudentPages/StudentDashboard.jsx"
+import Contact from "../Pages/ContactPagr.jsx"
 const SignIn = (props) => {
 
   const[data, setdata] = useState({
@@ -32,7 +34,7 @@ const navigate = useNavigate();
  console.log(result.data.message)
   if (result.data.message == "Successful Authentication!!") {
 
-    const token = result['data']['jwt']
+    const token = result['data']['jwt'] //result.data.jwt
     sessionStorage['email'] = data.email
     sessionStorage['Authorization'] = "Bearer " + token
     toast.success(result.data.message)
@@ -42,6 +44,10 @@ const navigate = useNavigate();
     if((await rolee).data.role == "TEACHER")
     {
       navigate("/TeacherMainPage");
+    }
+    if((await rolee).data.role == "STUDENT")
+    {
+      navigate("/StudentMainPage");
     }
   } 
 else

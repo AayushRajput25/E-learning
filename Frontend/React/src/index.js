@@ -21,6 +21,7 @@ import Student from './Students';
 import HomeSign from './SignupLogin/HomeSign';
 import VideoUpload from './SignupLogin/try';
 import FetchStudents from './Teacher Content/MyStudents';
+import AdminPanel from './Admin/AdminPanel';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
