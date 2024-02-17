@@ -19,7 +19,9 @@ import com.app.dao.UserEntityDao;
 import com.app.dto.ApiResponse;
 import com.app.dto.StudentDetailDTO;
 import com.app.dto.TeacherDetailResponseDto;
+import com.app.dto.CountOfEnrolls;
 import com.app.dto.EnrolledCoursesDto;
+import com.app.dto.NoOfEnrollsPerTeachers;
 import com.app.entities.Courses;
 import com.app.entities.Enrollment;
 import com.app.entities.Students;
@@ -144,6 +146,20 @@ public class StudentServiceImpl implements StudentService {
 		
 		List<StudentDetailDTO> entityToDto = mapper.map(reslist, new TypeToken<List<StudentDetailDTO>>(){}.getType());
 		return entityToDto;
+	}
+
+
+	@Override
+	public List<CountOfEnrolls> countEnrollsPerDay() {
+		
+		return eDao.noOfEnrollsPerDay();
+	}
+
+
+	@Override
+	public List<NoOfEnrollsPerTeachers> countEnrollForTeachers() {
+		
+		return eDao.noOfEnrollsPerTeacher();
 	}
 	
 

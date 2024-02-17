@@ -9,7 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.ApiResponse;
 import com.app.dto.StudentDetailDTO;
+import com.app.dto.CountOfEnrolls;
 import com.app.dto.EnrolledCoursesDto;
+import com.app.dto.NoOfEnrollsPerTeachers;
 import com.app.entities.Courses;
 import com.app.entities.Enrollment;
 
@@ -32,6 +34,10 @@ public interface StudentService {
 	ApiResponse unenrollByID(@NotNull Long enrollmentId);
 
 	List<StudentDetailDTO> getAllStudent();
+
+	List<CountOfEnrolls> countEnrollsPerDay();
+
+	List<NoOfEnrollsPerTeachers> countEnrollForTeachers();
 
 	
 }
