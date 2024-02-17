@@ -27,3 +27,4 @@ function Toast({ message, type }) {
 }
 
 export default Toast;
+
