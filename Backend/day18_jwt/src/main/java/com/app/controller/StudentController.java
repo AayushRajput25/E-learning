@@ -22,6 +22,7 @@ import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
 import javax.validation.constraints.NotNull;
 
+import com.app.dto.ApiResponse;
 import com.app.dto.StudentDetailDTO;
 import com.app.dto.StudentSignUp;
 import com.app.service.StudentService;
@@ -74,7 +75,12 @@ public class StudentController {
 	public ResponseEntity<?> enrollInCourse(@PathVariable @NotNull Long studentID, @PathVariable @NotNull Long courseID)
 	{
 		System.out.println("enroll by StudentID ="+studentID + "CourseID ="+courseID);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(student.enrollByIds(studentID,courseID));
+		try {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(student.enrollByIds(studentID,courseID));
+
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(new ApiResponse("something went wrong"));
+		}
 	}
 	
 	@GetMapping("/enroll/{studentID}")

@@ -70,7 +70,11 @@ public class TeacherController {
 	@DeleteMapping("/{teacherID}")
 	public ResponseEntity<?> deleteTeacher(@PathVariable Long teacherID){
 		System.out.println("to delete Teacher "+teacherID);
-		return ResponseEntity.ok(teacher.deleteByID(teacherID));
+		try {
+			return ResponseEntity.ok(teacher.deleteByID(teacherID));
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(new ApiResponse("Invalid action, might be enrolled"));
+		}
 	}
 	
 	@PostMapping("/course/{teacherId}")
@@ -92,7 +96,12 @@ public class TeacherController {
 	public ResponseEntity<?> deleteCourse(@PathVariable @NotNull Long CourseId)
 	{
 		System.out.println("in delete Courese " + CourseId);
-		return ResponseEntity.ok(teacher.deleteCourseById(CourseId));
+		try {
+			return ResponseEntity.ok(teacher.deleteCourseById(CourseId));
+
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(new ApiResponse("Invalid action, might be enrolled"));
+		}
 	}
 	
 	@PostMapping("/course/content/{CourseId}")
