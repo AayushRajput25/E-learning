@@ -45,9 +45,13 @@ const navigate = useNavigate();
     {
       navigate("/TeacherMainPage");
     }
-    if((await rolee).data.role == "STUDENT")
+    else if((await rolee).data.role == "STUDENT")
     {
       navigate("/StudentMainPage");
+    }
+    else
+    {
+      navigate("/Adminpanel");
     }
   } 
 else

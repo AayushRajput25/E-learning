@@ -22,11 +22,15 @@ import HomeSign from './SignupLogin/HomeSign';
 import VideoUpload from './SignupLogin/try';
 import FetchStudents from './Teacher Content/MyStudents';
 import AdminPanel from './Admin/AdminPanel';
+import AdminModal from './Admin/AdminModal';
+import AllTeachers from './Admin/AllTeachers';
+import ATeacherCourses from './Admin/ATeacherCourses';
+import MyChartTry from './Admin/mycharttry';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
   <BrowserRouter>
-    <SaiBaba/>
+   <SaiBaba/>
   </BrowserRouter>
   
   

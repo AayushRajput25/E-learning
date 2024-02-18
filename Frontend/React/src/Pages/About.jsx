@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 const About = () => {
   return (
     <div>
+     
         <Navbar />
       <h2>About Page</h2>
       <Footer/>
