@@ -5,4 +5,6 @@ public interface NoOfEnrollsPerTeachers {
 	Long getCount();
 	
 	Long getTid();
+	
+	String getTname();
 }
