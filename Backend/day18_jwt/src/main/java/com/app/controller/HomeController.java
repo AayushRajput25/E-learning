@@ -41,7 +41,7 @@ public class HomeController {
 	
 //	@PreAuthorize("hasRole('ROLE_STUDENT')")							// only available to student
 	@GetMapping("/{email}")														// using params and reciving value with a key
-	public ResponseEntity<?> getDetailsByEmail(@RequestParam String email)/*(Authentication auth)*/
+	public ResponseEntity<?> getDetailsByEmail(@PathVariable String email)/*(Authentication auth)*/
 	{
 		System.out.println("In get email");
 		System.out.println(email);
