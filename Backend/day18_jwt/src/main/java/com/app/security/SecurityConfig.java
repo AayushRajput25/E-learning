@@ -43,12 +43,14 @@ public class SecurityConfig {
 		csrf()
 		.disable().
 		authorizeRequests()
-		.antMatchers("/products/view","/users/student_signup","/users/signin","/users/teacher_signup",
-				"/v*/api-doc*/**","/swagger-ui/**","/teacher/**","/home/**","/admin/**","/student/**").permitAll()
+		.antMatchers("/products/view","/users/student_signup","/users/signin","/users/teacher_signup","/users/admin_signup",
+				"/v*/api-doc*/**","/swagger-ui/**","/teacher/**","/admin/**","/student/**","/home/**").permitAll()
 		.antMatchers("/products/purchase").hasRole("CUSTOMER")
 		.antMatchers("/products/add").hasRole("ADMIN")
 		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 //		.antMatchers("/student/*").hasRole("STUDENT")
+//		.antMatchers("/admin/**").hasRole("STUDENT")
+//		.regexMatchers("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$").hasRole("STUDENT")
 		.anyRequest().authenticated()
 		.and()
 		//to tell spring sec : not to use HttpSession to store user's auth details

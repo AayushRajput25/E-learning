@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.dto.AdminSignUp;
 import com.app.dto.StudentSignUp;
 import com.app.dto.TeacherSignUp;
 import com.app.dto.UserDetailDto;
@@ -15,4 +16,6 @@ public interface UserService {
 	TeacherSignUp teacherRegistration(TeacherSignUp reqDTO);
 
 	UserDetailDto getDetialByEmail(String email);
+
+	AdminSignUp adminRegistration(@Valid AdminSignUp dto);
 }
