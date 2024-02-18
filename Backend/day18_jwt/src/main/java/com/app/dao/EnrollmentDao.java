@@ -36,7 +36,8 @@ public interface EnrollmentDao extends JpaRepository<Enrollment, Long>{
 	List<CountOfEnrolls> noOfEnrollsPerDay();
 
 	
-	@Query(value = "select count(enrollment_id) as count, teacher_id as tid from enrollment, course where course.id=enrollment.course_id group by teacher_id;",nativeQuery = true)
+	@Query(value = "select count(enrollment_id) as count, teacher_id as tid, teachers.name as tname from enrollment, course,teachers where course.id=enrollment.course_id and teachers.teachers_id = course.teacher_id group by teacher_id;"
+			,nativeQuery = true)
 	List<NoOfEnrollsPerTeachers> noOfEnrollsPerTeacher();
 	
 	
