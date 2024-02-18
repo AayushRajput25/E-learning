@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import CourseCard from "../components/CourseCard";
 import Background from "../components/Background";
+import Footer from "../components/Footer";
 
 const CourseData = [
   {"name": "Java", "description": "It is also possible to insert multip"},
@@ -26,6 +27,7 @@ const imageUrl = 'https://wallpapercave.com/wp/wp3815943.png';
 const Home = () => {
   return (
     <div>
+      <div>
       <Navbar />
       <div className="container">
         <div className="row">
@@ -37,6 +39,9 @@ const Home = () => {
         </div>
       </div>
       <Background imageUrl={imageUrl} />
+      
+      </div>
+      <Footer/>
     </div>
   );
 };
