@@ -26,7 +26,7 @@ const AllStudents = () => {
     }, []);
   
     const fetchStudents = () => {
-      axios.get(`http://localhost:8080/admin/admin/student`)
+      axios.get(`http://localhost:8080/admin/student`)
         .then((response) => {
           setStudents(response.data);
         })
