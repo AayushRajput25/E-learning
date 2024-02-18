@@ -40,7 +40,7 @@ public class UserDetailDto {
 	
 	@JsonProperty(access = Access.READ_ONLY)
 	@Enumerated(EnumType.STRING)
-	private UserRole role = UserRole.STUDENT;
+	private UserRole role = UserRole.ROLE_STUDENT;
 	
 	private String address;
 	

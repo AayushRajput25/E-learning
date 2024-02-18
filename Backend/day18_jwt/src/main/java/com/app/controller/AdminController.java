@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.ApiResponse;
 import com.app.entities.Enrollment;
 import com.app.service.ContentService;
 import com.app.service.CourseService;
@@ -61,7 +62,11 @@ public class AdminController {
 	@DeleteMapping("/teacher/{teacherID}")
 	public ResponseEntity<?> deleteTeacher(@PathVariable Long teacherID){
 		System.out.println("to delete Teacher "+teacherID);
-		return ResponseEntity.ok(teacher.deleteByID(teacherID));
+		try {
+			return ResponseEntity.ok(teacher.deleteByID(teacherID));
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(new ApiResponse("Invalid action, might be enrolled"));
+		}
 	}
 	
 	@DeleteMapping("/student/{studentID}")
@@ -74,7 +79,12 @@ public class AdminController {
 	public ResponseEntity<?> deleteCourse(@PathVariable @NotNull Long CourseId)
 	{
 		System.out.println("in delete Courese " + CourseId);
-		return ResponseEntity.ok(teacher.deleteCourseById(CourseId));
+		try {
+			return ResponseEntity.ok(teacher.deleteCourseById(CourseId));
+
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(new ApiResponse("Invalid action, might be enrolled"));
+		}
 	}
 	
 	@DeleteMapping("/course/content/{contentId}")  // deleting the co
