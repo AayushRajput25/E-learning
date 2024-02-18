@@ -57,7 +57,7 @@ public class UserSignInSignUpController {
 	 * 401
 	 */
 	@PostMapping("/signin")
-	public ResponseEntity<?> signinUser(@RequestBody @Valid SigninRequest reqDTO,Authentication auth) {
+	public ResponseEntity<?> signinUser(@RequestBody @Valid SigninRequest reqDTO) { // signin  to check 
 		System.out.println("in signin " + reqDTO);
 		// simply invoke authentucate(...) on AuthMgr
 		// i/p : Authentication => un verifed credentials
@@ -69,20 +69,15 @@ public class UserSignInSignUpController {
 					.authenticate(new UsernamePasswordAuthenticationToken(reqDTO.getEmail(), reqDTO.getPassword()));
 			System.out.println(verifiedAuth.getClass());// Custom user details
 			// => auth success
-			
-			
+				
 			String token = utils.generateJwtToken(verifiedAuth);
-//			CustomUserDetails user = (CustomUserDetails) auth.getPrincipal();
-//			System.out.println("FINDING ID = "+ user.getId());
-//			
+			
 			return ResponseEntity
 					.ok(new SigninResponse(token, "Successful Authentication!!"));
 		} catch (Exception e) {
 			SigninResponse err = new SigninResponse("","Inavalid credentials!!");
 			return ResponseEntity.ok(err);
 		}
-		
-
 	}
 
 }

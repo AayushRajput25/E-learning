@@ -1,7 +1,5 @@
 package com.app.service;
 
-import java.io.IOException;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

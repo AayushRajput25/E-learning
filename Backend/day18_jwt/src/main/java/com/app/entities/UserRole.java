@@ -1,6 +1,5 @@
 package com.app.entities;
 
 public enum UserRole {
-	STUDENT,ADMIN,TEACHER
-	
+	ROLE_STUDENT,ROLE_ADMIN,ROLE_TEACHER
 }

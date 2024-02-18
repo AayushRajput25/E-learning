@@ -20,3 +20,4 @@ const Background = ({ imageUrl, children }) => {
 };
 
 export default Background;
+

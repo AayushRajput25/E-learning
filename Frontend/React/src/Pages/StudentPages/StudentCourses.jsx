@@ -1,3 +1,4 @@
+
 // import React, { useState, useEffect } from "react";
 // import Navbar from "../../components/Navbar";
 // import CourseCard from "../../components/CourseCard";
@@ -120,3 +121,4 @@ const StudentCourses = () => {
 }
 
 export default StudentCourses;
+

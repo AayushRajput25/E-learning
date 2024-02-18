@@ -50,7 +50,7 @@ public class TeacherController {
 	private TeacherService teacher;
 	
 	@Autowired
-	private ContentService course;
+	private ContentService content;
 	
 	
 	
@@ -68,9 +68,13 @@ public class TeacherController {
 	}
 	
 	@DeleteMapping("/{teacherID}")
-	public ResponseEntity<?> deleteStudent(@PathVariable Long teacherID){
+	public ResponseEntity<?> deleteTeacher(@PathVariable Long teacherID){
 		System.out.println("to delete Teacher "+teacherID);
-		return ResponseEntity.ok(teacher.deleteByID(teacherID));
+		try {
+			return ResponseEntity.ok(teacher.deleteByID(teacherID));
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(new ApiResponse("Invalid action, might be enrolled"));
+		}
 	}
 	
 	@PostMapping("/course/{teacherId}")
@@ -92,20 +96,24 @@ public class TeacherController {
 	public ResponseEntity<?> deleteCourse(@PathVariable @NotNull Long CourseId)
 	{
 		System.out.println("in delete Courese " + CourseId);
-		return ResponseEntity.ok(teacher.deleteCourseById(CourseId));
+		try {
+			return ResponseEntity.ok(teacher.deleteCourseById(CourseId));
+
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(new ApiResponse("Invalid action, might be enrolled"));
+		}
 	}
 	
 	@PostMapping("/course/content/{CourseId}")
 	public ResponseEntity<?> addContents(@PathVariable @NotNull Long CourseId,@RequestBody ContentDescDto content)
 	{
 		System.out.println("in add course"+content + CourseId);
-		return ResponseEntity.status(HttpStatus.CREATED).body(course.newContentByCId(CourseId,content));
-	
+		return ResponseEntity.status(HttpStatus.CREATED).body(this.content.newContentByCId(CourseId,content));
 	}
 	
 	@PostMapping(value = "/course/content/video/{contentId}",consumes = "multipart/form-data")
 	public ResponseEntity<?> uploadImageToFIleSystem(@RequestParam("image")MultipartFile file,@PathVariable Long contentId) throws IOException, java.io.IOException {
-		ApiResponse uploadImage = course.uploadImageToFileSystem(file,contentId);
+		ApiResponse uploadImage = content.uploadImageToFileSystem(file,contentId);
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(uploadImage);
 	}
@@ -114,14 +122,14 @@ public class TeacherController {
 	public ResponseEntity<ContentGetDto> coureseContentById(@PathVariable @NotNull Long contentId)
 	{
 		System.out.println("in Get Content"+ contentId);
-		return ResponseEntity.ok(course.contentBYId(contentId));
+		return ResponseEntity.ok(content.contentBYId(contentId));
 	}
 	
 	@GetMapping("/course_content/{CourseId}")  // getting all contents assosiated with a course 
 	public ResponseEntity<?> getContentBYContentId(@PathVariable @NotNull Long CourseId)
 	{
 		System.out.println("in get content by course id" + CourseId);
-		return ResponseEntity.ok(course.getCoursesById(CourseId));
+		return ResponseEntity.ok(content.getCoursesById(CourseId));
 	}
 
 	@GetMapping("/enroll/{teacherId}")
@@ -131,11 +139,11 @@ public class TeacherController {
 		return ResponseEntity.ok(teacher.studentsForTeachers(teacherId));
 	}
 	
-	@DeleteMapping("/course/content/{contentId}")  // deleting the co
+	@DeleteMapping("/course/content/{contentId}")  // deleting the contentId
 	public ResponseEntity<?> deleteContentById(@PathVariable @NotNull Long contentId)
 	{
 		System.out.println("in get delete by course id" + contentId);
-		return ResponseEntity.ok(course.deleteByCourseId(contentId));
+		return ResponseEntity.ok(content.deleteByCourseId(contentId));
 	}
 	
 	@PostMapping(value="/images/{teacherId}",consumes = "multipart/form-data")
@@ -165,13 +173,12 @@ public class TeacherController {
 //		return ResponseEntity.ok(teacher.editContentByTID(teacherId,course));
 //	}
 //	
-//	
 	
 	@GetMapping("/Course/name/{CourseId}")
 	public ResponseEntity<?> courseName(@PathVariable @NotNull Long CourseId)
 	{
 		System.out.println("in get course name by course id" + CourseId);
-		return ResponseEntity.ok(course.courseNameById(CourseId));	
+		return ResponseEntity.ok(content.courseNameById(CourseId));	
 	}
 	
 	

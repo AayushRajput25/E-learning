@@ -44,7 +44,7 @@ public class TeacherSignUp {
 	@JsonProperty(access = Access.READ_ONLY)
 	@Enumerated(EnumType.STRING)
 	@Column(length = 30)
-	private UserRole role = UserRole.TEACHER;
+	private UserRole role = UserRole.ROLE_TEACHER;
 	
 	@Column(length = 200)
 	private String address;
