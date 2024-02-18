@@ -1,5 +1,7 @@
 package com.app.service;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -8,13 +10,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.custom_exceptions.ResourceNotFoundException;
+import com.app.dao.AdminDao;
 import com.app.dao.StudentDao;
 import com.app.dao.TeacherDao;
 import com.app.dao.UserEntityDao;
+import com.app.dto.AdminSignUp;
 import com.app.dto.Signup;
 import com.app.dto.StudentSignUp;
 import com.app.dto.TeacherSignUp;
 import com.app.dto.UserDetailDto;
+import com.app.entities.Admin;
 import com.app.entities.Students;
 import com.app.entities.Teachers;
 import com.app.entities.UserEntity;
@@ -36,6 +41,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private TeacherDao teacherDao;
+	
+	@Autowired
+	private AdminDao adminDao;
 
 	@Override
 	public StudentSignUp studentRegistration(StudentSignUp reqDTO) {
@@ -67,25 +75,47 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDetailDto getDetialByEmail(String email) {
 		// TODO Auto-generated method stub
+		System.out.println(email);
 		UserEntity u =  userDao.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("Invalid user"));
 	
 		Long id = u.getId();
 		
-		if (u.getRole().name()=="STUDENT") {
+		if (u.getRole().name()=="ROLE_STUDENT") {
 			Students s= studentDao.getById(id);
 			UserDetailDto res = mapper.map(s, UserDetailDto.class);
 			res.setEmail(u.getEmail());
 			res.setRole(u.getRole());
 			return res;
 		}
-		else if (u.getRole().name()=="TEACHER") {
+		else if (u.getRole().name()=="ROLE_TEACHER") {
 			Teachers t = teacherDao.getById(id);
 			UserDetailDto res = mapper.map(t, UserDetailDto.class);
 			res.setEmail(u.getEmail());
 			res.setRole(u.getRole());
 			return res;
 		}
+		else if (u.getRole().name()=="ROLE_ADMIN") {
+			Admin a = adminDao.getById(id);
+			UserDetailDto res = mapper.map(a, UserDetailDto.class);
+			res.setEmail(u.getEmail());
+			res.setRole(u.getRole());
+			return res;
+		}
+		
 		return null;
+	}
+
+	@Override
+	public AdminSignUp adminRegistration(@Valid AdminSignUp reqDTO) {
+		Admin admin = mapper.map(reqDTO, Admin.class);
+		UserEntity user = mapper.map(reqDTO, UserEntity.class);
+		
+		user.setPassword(encoder.encode(user.getPassword()));  //pwd : encrypted using SHA
+		AdminSignUp reg = mapper.map(userDao.save(user), AdminSignUp.class);
+		admin.setAId(user);
+		reg = mapper.map(adminDao.save(admin), AdminSignUp.class) ;
+		
+		return reg;
 	}
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.resource.AppCacheManifestTransformer;
 
+import com.app.dto.AdminSignUp;
 import com.app.dto.SigninRequest;
 import com.app.dto.SigninResponse;
 import com.app.dto.StudentSignUp;
@@ -51,6 +52,11 @@ public class UserSignInSignUpController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.teacherRegistration(dto));
 	}
 
+	@PostMapping("/admin_signup")
+	public ResponseEntity<?> AdminSignup(@RequestBody @Valid AdminSignUp dto) {
+		System.out.println("in sign up " + dto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(userService.adminRegistration(dto));
+	}
 	/*
 	 * request payload : Auth req DTO : email n password resp payload : In case of
 	 * success : Auth Resp DTO : mesg + JWT token + SC 200 IN case of failure : SC
