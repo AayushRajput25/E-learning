@@ -47,5 +47,8 @@ public class StudentDetailDTO {
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
 
+	@JsonProperty(access = Access.READ_ONLY)
+	private String email;
+	
 	
 }

@@ -44,7 +44,7 @@ public class SecurityConfig {
 		.disable().
 		authorizeRequests()
 		.antMatchers("/products/view","/users/student_signup","/users/signin","/users/teacher_signup","/users/admin_signup",
-				"/v*/api-doc*/**","/swagger-ui/**","/teacher/**","/admin/**","/student/**","/home/**").permitAll()
+				"/v*/api-doc*/**","/swagger-ui/**","/teacher/**","/admin/**","/student/**","/home/**","/email/**").permitAll()
 		.antMatchers("/products/purchase").hasRole("CUSTOMER")
 		.antMatchers("/products/add").hasRole("ADMIN")
 		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()

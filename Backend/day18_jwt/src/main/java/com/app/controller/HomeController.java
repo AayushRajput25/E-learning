@@ -46,6 +46,7 @@ public class HomeController {
 		System.out.println("In get email");
 		System.out.println(email);
 //		 String email = (String)auth.getPrincipal();
+		
 		return ResponseEntity.ok(user.getDetialByEmail(email));
 	}
 	

@@ -74,6 +74,7 @@ public class StudentServiceImpl implements StudentService {
 		Students s = dao.findById(studentID).orElseThrow(()-> new ResourceNotFoundException("student Not found"));
 		StudentDetailDTO res = mapper.map(s, StudentDetailDTO.class);
 		res.setRole(u.getRole());
+		res.setEmail(u.getEmail());
 //		System.out.println(res.toString());
 		return res;
 	}
@@ -132,11 +133,11 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public ApiResponse unenrollByID(@NotNull Long enrollmentId) {
-		if (eDao.existsById(enrollmentId)) {
+//		if (eDao.existsById(enrollmentId)) {
 			eDao.deleteById(enrollmentId);
 			return new ApiResponse("deleted Successfull");
-		}
-		return new ApiResponse("deletion failed");
+//		}
+//		return new ApiResponse("deletion failed");
 	}
 	
 	@Override

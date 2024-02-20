@@ -79,7 +79,7 @@ public class StudentController {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(student.enrollByIds(studentID,courseID));
 
 		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(new ApiResponse("something went wrong"));
+			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("something went wrong"));
 		}
 	}
 	
