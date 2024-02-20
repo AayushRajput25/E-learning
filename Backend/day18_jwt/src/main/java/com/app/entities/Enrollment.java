@@ -44,7 +44,7 @@ public class Enrollment {
 	@JoinColumn(name = "course_id",nullable = false)
 	private Courses cid;
 	
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	@JoinColumn(name = "student_id",nullable = false)
 	private Students sid;
 

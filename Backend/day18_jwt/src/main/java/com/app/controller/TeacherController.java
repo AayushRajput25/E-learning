@@ -181,5 +181,11 @@ public class TeacherController {
 		return ResponseEntity.ok(content.courseNameById(CourseId));	
 	}
 	
+	@GetMapping("/data/{teacherId}")
+	public ResponseEntity<?> getCountPerCourse(@PathVariable @NotNull Long teacherId)
+	{
+		System.out.println(" to get analysied data of tid = "+teacherId);
+		return ResponseEntity.ok(teacher.getCountForCId(teacherId));
+	}
 	
 }

@@ -18,6 +18,7 @@ import com.app.dao.CourseDao;
 import com.app.dao.EnrollmentDao;
 import com.app.dao.TeacherDao;
 import com.app.dao.UserEntityDao;
+import com.app.dto.AnalyticForTeacherDto;
 import com.app.dto.ApiResponse;
 import com.app.dto.CoursesDto;
 import com.app.dto.EditCourseDto;
@@ -90,6 +91,7 @@ public class TeacherServiceImpl implements TeacherService {
 		
 		TeacherDetailResponseDto response = mapper.map(t,TeacherDetailResponseDto.class);
 		response.setRole(u.getRole());
+		response.setEmail(u.getEmail());
 		
 		return response;
 	}
@@ -126,17 +128,8 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public List<TeacherDetailResponseDto> getAllTeachers() { // to get all teachers registed for admin
 		
-//		List<TeacherDetailResponseDto> result = null;
 		List<Teachers> reslist = tDao.findAll();
-//		if (reslist != null) {
-//			
-//			for (Teachers t : reslist) {
-//				
-//				result.add(mapper.map(t, TeacherDetailResponseDto.class));
-//			}
-//			return result;
-//		}
-//		
+	
 		List<TeacherDetailResponseDto> entityToDto = mapper.map(reslist, new TypeToken<List<TeacherDetailResponseDto>>(){}.getType());
 		return entityToDto;
 	}
@@ -173,6 +166,12 @@ public class TeacherServiceImpl implements TeacherService {
 		}
 			
 		return new  ApiResponse("updation failed");
+	}
+
+	@Override
+	public List<AnalyticForTeacherDto> getCountForCId(@NotNull Long teacherId) {
+		
+		return tDao.getcountByCid(teacherId);
 	}
 
 	

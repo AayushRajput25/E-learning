@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.dto.AnalyticForTeacherDto;
 import com.app.dto.ApiResponse;
 import com.app.dto.CoursesDto;
 import com.app.dto.EditCourseDto;
@@ -41,5 +42,7 @@ public interface TeacherService {
 	byte[] downloadImage(Long teacherId) throws IOException;
 
 	ApiResponse editContentByTID(@NotNull Long teacherId, @Valid EditCourseDto course);
+
+	List<AnalyticForTeacherDto> getCountForCId(@NotNull Long teacherId);
 
 }
