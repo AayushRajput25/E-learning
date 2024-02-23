@@ -32,6 +32,8 @@ public class AdminController {
 	@Autowired
 	private ContentService content;
 	
+	@Autowired
+	private CourseService course;
 	
 	@GetMapping("/teacher")
 	public ResponseEntity<?> getAllTeacher(){
@@ -104,6 +106,12 @@ public class AdminController {
 	public ResponseEntity<?> countEnrollsPerTeacher()
 	{
 		return ResponseEntity.ok(student.countEnrollForTeachers());
+	}
+	
+	@GetMapping("/data")
+	public ResponseEntity<?> getCountPerCname()
+	{
+		return ResponseEntity.ok(course.countPerCname());
 	}
 	
 }
