@@ -22,6 +22,7 @@ import {
   import { useNavigate } from "react-router-dom";
 import AllStudents from "./AllStudents"
 import AllTeacher from "./AllTeachers"
+import AnalyticsPage from "./AnalyticsPage";
 
 const AdminPanel = () => {
     const email = sessionStorage["email"]
@@ -51,6 +52,9 @@ const AdminPanel = () => {
       {
 //return <FetchStudents/>
       }
+    else if (conditionn=== "-1"){
+      return <AnalyticsPage/>
+    }
     }
 
     const ChangePage = (pageno) => {
@@ -94,14 +98,9 @@ const AdminPanel = () => {
         </Collapse>
       </Navbar>
 
-      <Row>
-      <Col md={2}>
-
-      </Col>
-      <Col md={10}>
+    
         {YourComponent()}
-      </Col>
-      </Row>
+
     </div>) ;
 }
 export default AdminPanel

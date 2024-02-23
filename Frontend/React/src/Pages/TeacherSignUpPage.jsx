@@ -1,3 +1,4 @@
+
 import React from "react";
 import Navbar from "../components/Navbar";
 import TeacherSignUp from "../components/TeacherSignUp";
@@ -10,5 +11,6 @@ const TeacherSignUpPage = () => {
         </>
     )
 }
+
 
 export default TeacherSignUpPage

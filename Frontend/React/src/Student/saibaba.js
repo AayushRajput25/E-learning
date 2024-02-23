@@ -22,6 +22,11 @@ import EditStudent from '../Pages/StudentPages/EditStudent'
 import Home from '../Pages/Home'
 import ContactPage from '../Pages/ContactPagr'
 import About from '../Pages/About'
+import StudentContent from '../Pages/StudentPages/StudentContent'
+import ATeacherCourses from '../Admin/ATeacherCourses'
+import AdminPanel from '../Admin/AdminPanel'
+import AdminPanelash from '../Admin/AdminPanelash'
+import AnalyticsPage from '../Admin/AnalyticsPage'
 
 function SaiBaba() {
  
@@ -39,19 +44,25 @@ function SaiBaba() {
         <Route path="/TeacherSignup" Component={TeacherSignUp} exact />
         <Route path="/StudentSignup" Component={StudentSignUp} exact />
         <Route path = "Today" Component={App} />
-        {/* <Route path="/addcourse" Component={Addcourse} exact /> */}
         <Route path="/viewcourse" Component={Allcourse} exact />
        <Route path="/students" Component={Student} exact />
        <Route path="/TeacherMainPage" Component={TeacherMainPage} exact />
        <Route path="/contents" Component={Content} exact />
        <Route path="/AddContent" Component={Addcontent} exact />
        <Route path="/StudentMainPage" Component={StudentDashboard} exact />
+       <Route path="/Student_dashboard" Component={StudentDashboard} exact />
        <Route path="/my_courses" Component={StudentCourses} exact />
        <Route path="/home" Component={Home} exact />
        <Route path="/edit_student" Component={EditStudent} exact />
        <Route path="/contact" Component={ContactPage} exact />
        <Route path="/about" Component={About} exact />
        <Route path="/login" Component={SignIn} exact />
+       <Route path="/Studentcontents" Component={StudentContent} exact />
+       <Route path="/AdminTeacherCourses" Component={ATeacherCourses} />
+       <Route path="/Adminpanel" Component={AdminPanel} />
+       <Route path="/Adminka" Component={AdminPanelash} />
+       <Route path="/analytics" Component={AnalyticsPage} />
+
       </Routes>
       <ToastContainer />
     </div>
