@@ -5,10 +5,9 @@ import { Row } from "react-bootstrap";
 import { Col } from "reactstrap";
 import Example from "./Navbar";
 import ReactPlayer from "react-player";
-import Footer from "./Footer"
 import { Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom'
-import { useLocation } from "react-router-dom";
+// import './Content.css';
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
@@ -16,6 +15,8 @@ import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import MyContext from "../Student/MyContext";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 const Content = () => {
 
   const [Courses, setCourses] = useState([]);
@@ -59,71 +60,84 @@ axios.delete(serverUrl).then(() => {
 }).catch((error) => {
   console.log(error);
 });
-
 }
-
 console.log(luffy)
-return(
- 
-    <div>
-     
-        <Example/>
-        <br/>
-        <Row>
-        <Col md={3}>
-        {Courses.length > 0 ? Courses.map((item) => (
-        <div key={item.id}>
-       <Sidebar>
-  <Menu>
-    {/* <MenuItem> {item.title} </MenuItem> */}
-          <table>
-            <tr>
-              <td style={{ width: '150px' }}>
-              <Link className="nav-link" onClick={() => dosomething(item)} key={item.id}> {item.title} </Link>
-              </td>
-              <td><Button color="danger" onClick={() => deletesomething(item.id)} size="sm" className="ml-4">delete</Button></td>
-            </tr>
-          </table>
-
-
-    {/* <div><Link className="nav-link" onClick={() => dosomething(item)} key={item.id}> {item.title} </Link> <Button outline color="danger" onClick={() => deletesomething(item.id)} size="sm" className="ml-4">delete</Button></div> */}
-  </Menu>
-</Sidebar>
-        </div>
-      )) : "No Contents"}
-      <Sidebar>
-      <Menu>
-    <Link className="nav-link" to="/Addcontent"> Add content + </Link>
-  </Menu>
-      </Sidebar>
+return (
+  <div style={{ backgroundColor: '#add8e6', padding: '20px' }}>
+    {/* Navbar */}
+    <Navbar />
+    <br />
+    <Row>
+      {/* Left Column */}
+      <Col md={3}>
+        {Courses.length > 0 ? (
+          Courses.map((item) => (
+            <div key={item.id}>
+              <Sidebar>
+                <Menu>
+                  <table>
+                    <tr>
+                      <td style={{ width: '150px' }}>
+                        <Link
+                          className="nav-link"
+                          onClick={() => dosomething(item)}
+                          key={item.id}
+                        >
+                          {item.title}
+                        </Link>
+                      </td>
+                      <td>
+                        <Button
+                          color="danger"
+                          onClick={() => deletesomething(item.id)}
+                          size="sm"
+                          className="ml-4"
+                        >
+                          delete
+                        </Button>
+                      </td>
+                    </tr>
+                  </table>
+                </Menu>
+              </Sidebar>
+            </div>
+          ))
+        ) : (
+          <p>No Contents</p>
+        )}
+        <Sidebar>
+          <Menu>
+            <Link className="nav-link" to="/Addcontent">
+              Add content +
+            </Link>
+          </Menu>
+        </Sidebar>
       </Col>
 
+      {/* Right Column */}
       <Col md={9}>
-      <Header name = {refValue.name} contents = {courseName}/>
-      <br/>
-      <Row>
-        <Col md={5}>
-    <h4>This is Content for {luffy.title}</h4>
-    <br/>
-    <p><h6>{luffy.description}</h6></p>
-      <br/>
-        </Col>
-        <Col md={7}>
-       <ReactPlayer url = {luffy.filePath}
-        controls={true}/>
-        </Col>
-      </Row>
-     
-      </Col>
+        {/* Header Component */}
+        <Header name={refValue.name} contents={courseName} />
+        <br />
+        <Row>
+          <Col md={5}>
+            <h4>{luffy.title}</h4>
+            <br />
+            <p>
+              <h6>{luffy.description}</h6>
+            </p>
+            <br />
+          </Col>
+          <Col md={7}>
+            <ReactPlayer url={luffy.filePath} controls={true} />
+          </Col>
         </Row>
-        <br/>
-        <div className="text-center"> 
-<Button color="primary" size="lg" active>Previous</Button>{' '}
-<Button color="primary" size="lg" active className="ml-3">Next</Button>
-<Button color="Secondary" size="lg" active className="ml-3" onClick={OnLogOut}>Logout</Button></div>
-        <Footer/>
-    </div>
+      </Col>
+    </Row>
+    <br />
+    {/* Footer Component */}
+    <Footer />
+  </div>
 );
-}
-
+        }
 export default Content;

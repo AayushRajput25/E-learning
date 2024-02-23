@@ -1,43 +1,67 @@
-
 // import React, { useState, useEffect } from "react";
 // import Navbar from "../../components/Navbar";
-// import CourseCard from "../../components/CourseCard";
+// import ContentCard from "../../components/ContentCard";
 // import Background from "../../components/Background";
 // import axios from "axios";
+// import Footer from "../../components/Footer";
 
 // const imageUrl = sessionStorage.getItem('imgUrl');
+
 // const StudentCourses = () => {
 //   const [courseData, setCourseData] = useState([]);
+//   const [isLoading, setIsLoading] = useState(true);
 
 //   useEffect(() => {
 //     const studentId = sessionStorage.getItem('student_id');
 //     axios.get(`http://localhost:8080/student/enroll/${studentId}`)
-//       .then(response => setCourseData(response.data))
-//       .catch(error => console.error('Error fetching data:', error));
+//       .then(response => {
+//         setCourseData(response.data);
+//         console.log(courseData);
+//         setIsLoading(false);
+//       })
+//       .catch(error => {
+//         console.error('Error fetching data:', error);
+//         setIsLoading(false);
+//       });
 //   }, []);
 
 //   return (
-//     <Background imageUrl={imageUrl}>
+//     <Background imageUrl={'https://wallpapers.com/images/featured/minimalist-7xpryajznty61ra3.jpg'}>
 //       <Navbar />
 //       <div className="container">
-//         <div className="row">
-//           {courseData.map((course, index) => (
-//             <div key={index} className="col-md-3 mb-3">
-//               <CourseCard
-//                 title={course.cname}
-//                 description={course.des}
-//                 courseId={course.eid}
-//                 kaam={"View Contents"}
-//               />
-//             </div>
-//           ))}
-//         </div>
+//         {isLoading ? (
+//           <p>Loading...</p>
+//         ) : (
+//           <div className="row"> 
+//             {courseData.length > 0 ? (
+//               courseData.map((course, index) => (
+//                 <div key={course.eid} className="col-md-3 mb-3">
+//                   <ContentCard
+//                     title={course.cname}
+//                     description={course.des}
+//                     enrollmentId={course.eid}
+//                     kaam={"View Contents"}
+//                   />
+//                 </div>
+//               ))
+//             ) : (
+//               <div className="text-center mt-5 p-4 rounded bg-light border shadow-sm">
+//                 <p className="mb-3" >You are not enrolled in any courses</p>
+//                 <button className="btn btn-success">Explore Courses</button>
+//               </div>
+//             )}
+//           </div>
+//         )}
 //       </div>
+//       <Footer />
 //     </Background>
 //   );
-// };
+// }
 
-//  My work
+// export default StudentCourses;
+
+
+// // //  My work
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
@@ -46,6 +70,7 @@ import {
   Card, CardBody, CardSubtitle, CardText, Button, Container
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom'
+import Background from "../../components/Background";
 
 const StudentCourses = () => {
   const navigate = useNavigate()  
@@ -98,6 +123,8 @@ const StudentCourses = () => {
   return (
 
     <div>
+      <Background imageUrl={'https://wallpapercave.com/wp/wp8063327.jpg'}>
+
       <h1 className="text-center">All Courses</h1>
       <p>List of Courses are as follows</p>
 
@@ -115,6 +142,7 @@ const StudentCourses = () => {
           </Card>
         </div>
       )) : "No courses"}
+      </ Background>
     </div>
    
   );

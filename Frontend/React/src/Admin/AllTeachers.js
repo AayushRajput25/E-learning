@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Table, Button } from "reactstrap";
 import { useNavigate , Link} from "react-router-dom";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const AllTeachers = () => {
     const [refValue, setRefValue] = useState("");
     const [Teachers, setTeachers] = useState([]);
@@ -16,8 +17,10 @@ const AllTeachers = () => {
     axios.delete(serverUrl).then(() => {
       setTeachers(prevCourses => prevCourses.filter(Teacher => Teacher.id !== id));
     }).catch((error) => {
-      console.log(error);
-    });
+      console.log("");
+      toast.warn('Cannot Delete! Somebody has Enrolled for this Teacher, ');
+    }
+    );
   }
 
   const prevCourses = (id) => {

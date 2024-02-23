@@ -40,7 +40,6 @@ return (
       <h1>You are a student you work is in Progress</h1>
       <h2>After Ayush makes the enrollement Table</h2>
     </div>);
-
 }
 
 export default MainPage;

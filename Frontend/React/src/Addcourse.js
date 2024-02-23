@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input, FormText, Container } from 'reactstrap';
 import axios from "axios";
 import { useEffect } from "react";
+import Background from "./components/Background";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 const Addcourse = () => 
 {
     const [Course , changeCourse] = useState({ courseName: "", description : ""})
@@ -33,32 +36,38 @@ const handleChange = (event, property) => {
       } 
 
 return(
-<div>
-    <h1 className="text-center my-3">Add Course</h1>
-<Form onSubmit={CourseSubmit}>
+    <div>
+        <Background imageUrl={'https://wallpapercave.com/wp/wp8063327.jpg'}>
+        <Navbar />
+        <br/>
+        <h1 className="text-center my-3">Add Course</h1>
+        <Container className="mt-4 mb-4">
+            <Form onSubmit={CourseSubmit}>
+                <FormGroup> 
+                    <label for="title">Course Name</label>
+                    <Input type = "text" placeholder="Enter Title here" id="title"
+                        onChange={(e) => handleChange(e, "courseName")}
+                    value={Course.courseName}/>
+                </FormGroup>
 
-    <FormGroup>
-        <label for="title">Course Name</label>
-        <Input type = "text" placeholder="Enter Title here" id="title"
-        onChange={(e) => handleChange(e, "courseName")}
-        value={Course.courseName}/>
-    </FormGroup>
+                <FormGroup>
+                    <label for="description">Course Description</label>
+                    <Input type = "textarea" placeholder="Enter Description here" id="description"
+                    style={{height:170}}
+                    onChange={(e) => handleChange(e, "description")}
+                    value={Course.description}
+                    />
+                </FormGroup>
+                <br/>
 
-    <FormGroup>
-        <label for="description">Course Description</label>
-        <Input type = "textarea" placeholder="Enter Description here" id="description"
-        style={{height:170}}
-        onChange={(e) => handleChange(e, "description")}
-        value={Course.description}
-        />
-    </FormGroup>
-
-    <Container className="text-center">
-    <Button color="success">Add Course</Button>
-    <Button color="warning ml-2">clear</Button>
-    </Container>
-</Form>
-</div>
+                <Container className="text-center">
+                <Button color="success" className="mr-2">Add Course</Button>
+                <Button color="warning" className="ml-2">Clear</Button>
+                </Container>
+            </Form>
+            </Container>
+            </Background>
+        </div>
 );
 }
 

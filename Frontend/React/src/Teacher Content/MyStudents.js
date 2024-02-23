@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Table, Button } from "reactstrap";
+import Background from "../components/Background";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const FetchStudents = () => {
   const [refValue, setRefValue] = useState("");
@@ -44,6 +47,8 @@ const FetchStudents = () => {
     const serverUrl = `http://localhost:8080/student/enroll/${id.enrollmentId}`;
     axios.delete(serverUrl)
       .then(() => {
+        
+
         // Refetch courses after successful deletion
         fetchCourses(refValue.id);
       })
@@ -60,38 +65,40 @@ const FetchStudents = () => {
     return <div>Error: {error.message}</div>;
   }
 
-  console.log(courses);
-
   return (
     <div>
-      <br></br>
-      <h1 className="text-center mr-4">My Students</h1>
-      <br></br>
-      <br></br>
-      <div>
-        <Table hover>
-          <thead>
-            <tr>
-              <th>Student ID</th>
-              <th>Student Name</th>
-              <th>Course Name</th>
-              <th>Unenroll Student</th>
-            </tr>
-          </thead>
-          <tbody>
-            {courses.map((item) => (
-              <tr key={item.student_id}>
-                <td>{item.student_id}</td>
-                <td>{item.name}</td>
-                <td>{item.course_name}</td>
-                <td>
-                  <Button color="danger" onClick={() => deleteSomething(item)} size="sm" className="ml-4">delete</Button>
-                </td>
+      <Background imageUrl={'https://wallpapercave.com/wp/wp8063327.jpg'}>
+        <Navbar />
+        <br />
+        <h1 className="text-center mr-4">My Students</h1>
+        <br />
+        <br />
+        <div>
+          <Table hover bordered className="table-primary">
+            <thead>
+              <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Course Name</th>
+                <th>Unenroll Student</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      </div>
+            </thead>
+            <tbody>
+              {courses.map((item) => (
+                <tr key={item.student_id}>
+                  <td>{item.student_id}</td>
+                  <td>{item.name}</td>
+                  <td>{item.course_name}</td>
+                  <td>
+                    <Button color="danger" onClick={() => deleteSomething(item)} size="sm" className="ml-4">Delete</Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      
+      </Background>
     </div>
   );
 };

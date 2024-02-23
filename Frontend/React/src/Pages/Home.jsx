@@ -4,6 +4,8 @@ import Navbar from "../components/Navbar";
 import CourseCard from "../components/CourseCard";
 import Background from "../components/Background";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import Footer from "../components/Footer";
 
 const imageUrl = 'https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjEwNjQtMzYta3ZjNHNieHcuanBn.jpg';
 sessionStorage.setItem('bgimg', imageUrl);
@@ -24,6 +26,7 @@ const Home = () => {
         await axios.post(`http://localhost:8080/student/enroll/${studentId}/${courseId}`);
         // Add logic for successful enrollment, e.g., show a message to the user
         console.log(`Enrolled in course ${courseId}`);
+        toast.success("Successfully Enrolled!");
       } catch (error) {
         console.error('Error enrolling in the course:', error);
         // Handle the error, e.g., show an error message to the user
@@ -32,7 +35,7 @@ const Home = () => {
   };
 
   return (
-    <Background imageUrl={imageUrl}>
+    <Background imageUrl={'https://wallpapers.com/images/featured/minimalist-7xpryajznty61ra3.jpg'}>
       <Navbar />
       <div className="container">
         <div className="row">
@@ -49,6 +52,8 @@ const Home = () => {
           ))}
         </div>
       </div>
+      <ToastContainer />
+   
     </Background>
   );
 };

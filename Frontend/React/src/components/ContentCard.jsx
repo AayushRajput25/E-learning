@@ -5,15 +5,16 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button } from 'bootstrap';
 import { useState } from 'react';
+import StudentContent from '../Pages/StudentPages/StudentContent';
 
 
-const ContentCard = ({ title, description, courseId, kaam, eid }) => {
+const ContentCard = ({ title, description, enrollmentId, kaam, }) => {
     
     const [showDeletePrompt, setShowDeletePrompt] = useState(false);
     
     const handleDelete = async () => {
         try{
-            const response = await axios.delete(`http://localhost:8080/student/enroll/${eid}`);
+            const response = await axios.delete(`http://localhost:8080/student/enroll/${enrollmentId}`);
             if (response.status === 200){
                 toast.success("Successfully Unenrolled!", {
                 position: "top-right",
@@ -32,39 +33,12 @@ const ContentCard = ({ title, description, courseId, kaam, eid }) => {
             console.log("Some error: " + e);
         }
     }
-
-  const handleEnroll = async () => {
+// curl -X 'GET' \
+  // 'http://localhost:8080/teacher/course_content/1'  1 = course_id
+  const handleViewContent = async () => {
     const studentId = sessionStorage.getItem('student_id');
-    if (studentId != null || sessionStorage.getItem('jwt') != null) {
-      try {
-        await axios.post(`http://localhost:8080/student/enroll/${studentId}/${courseId}`);
-        // show a message to the user
-        toast.success("Successfully Enrolled!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored"
-        })
-        console.log(`Enrolled in course ${courseId}`);
-      } catch (error) {
-        toast.error('Something Went Wrong!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-        console.error('Error enrolling in the course:', error);
-        // Handle the error, e.g., show an error message to the user
-      }
-    }
+
+    
   };
 
 
@@ -75,7 +49,7 @@ const ContentCard = ({ title, description, courseId, kaam, eid }) => {
         <h5 className="card-title">{title}</h5>
         <p className="card-text">{description}</p>
         <div className="d-flex justify-content-between align-items-center">
-          <button className="btn btn-success" onClick={handleEnroll}>
+          <button className="btn btn-success" onClick={handleViewContent}>
             {kaam}
           </button>
           <button className="btn btn-primary" onClick={handleDelete}>Unenroll</button>

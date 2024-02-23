@@ -3,14 +3,13 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
-  Card, CardBody, CardSubtitle, CardText, Button, Container
+  Card, CardBody, CardSubtitle, CardText, Button, Container, Row, Col
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom'
-import { useContext } from "react";
-import MyContext from "./Student/MyContext";
-import context from "react-bootstrap/esm/AccordionContext";
-import { Routes, Route } from "react-router-dom";
-import Content from "./Teacher Content/Content";
+import Background from "./components/Background";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
+
 const Allcourse = () => {
   const navigate = useNavigate()  
   const notify = () => toast.error('Fetching Unsuccessful', {
@@ -28,7 +27,6 @@ const Allcourse = () => {
   const [Courses, setCourses] = useState([]);
   const [refValue, setRefValue] = useState("");
  
-
   useEffect(() => {
     axios.get("http://localhost:8080/home/" + email).then((Response) => {setRefValue(Response.data)});
   }, [email]);
@@ -61,34 +59,44 @@ const Allcourse = () => {
 
   const Addcontent = (Courseid) => {
     sessionStorage['Course'] = Courseid
-  //const nextState = { courseData: Courseid, refValue }; // yahi pe problem aayipk
-  navigate('/contents')
-  
+    navigate('/contents')
   }
 
   return (
-
     <div>
-      <h1 className="text-center">All Courses</h1>
-      <p>List of Courses are as follows</p>
+      <Navbar />
+      <Background imageUrl={'https://wallpapercave.com/wp/wp8063327.jpg'}>
+        <h1 className="text-center mt-4">All Courses</h1>
+        <p className="text-center">List of Courses are as follows</p>
 
-      {Courses.length > 0 ? Courses.map((item) => (
-        <div key={item.id}>
-          <Card className="text-center ml-3">
-            <CardBody>
-              <CardSubtitle className="font-weight-bold">{item.courseName}</CardSubtitle>
-              <CardText>{item.description}</CardText>
-              <Container className="text-center">
-                <Button color="warning" onClick={() => Addcontent(item.id)}>Add content</Button>
-                <Button color="danger ml-3" onClick={() => deleteCourse(item.id)}>Delete</Button>
-              </Container>
-            </CardBody>
-          </Card>
+        <Container>
+          {Courses.length > 0 ? Courses.map((item) => (
+            <Row key={item.id} className="mb-2">
+              <Col md={8} className="mx-auto">
+                <Card className="text-center">
+                  <CardBody>
+                    <CardSubtitle className="font-weight-bold"><h4>{item.courseName}</h4></CardSubtitle>
+                    <CardText>{item.description}</CardText>
+                    <div className="d-flex justify-content-center mt-3">
+                      <Button color="success" className="mr-4" onClick={() => Addcontent(item.id)}>Add content</Button>
+                      <Button color="danger" onClick={() => deleteCourse(item.id)} className="ml-4">Delete</Button>
+                    </div>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          )) : <Row className="text-center"><Col><p>No courses</p></Col></Row>}
+        </Container>
+        
+         <div className="text-center mt-3">
+          <Button color="primary" onClick={() => navigate('/teacher_dashboard')}>
+            Go to Teacher Dashboard
+          </Button>
         </div>
-      )) : "No courses"}
+<br/>
+       
+      </Background>
     </div>
-   
   );
 }
-
 export default Allcourse;

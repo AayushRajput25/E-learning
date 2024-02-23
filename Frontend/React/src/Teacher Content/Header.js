@@ -10,10 +10,10 @@ return(
         
         <Card className="text-center">
         <CardBody>
-        <h1> WELCOME {props.name}!!</h1>
-        <h3> Here are your Contents for {props.contents} </h3>
+        <h1> Welcome {props.name}!</h1>
+        <h3> Your Contents for {props.contents} </h3>
         </CardBody>
-      </Card>
+        </Card>
 
     </div>
 );

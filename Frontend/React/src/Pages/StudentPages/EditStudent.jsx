@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Background from '../../components/Background';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 function EditStudent() {
   const id = sessionStorage.getItem('student_id');
@@ -73,7 +75,8 @@ function EditStudent() {
   };
 
   return (
-    <Background imageUrl={sessionStorage.getItem('bgimg')}>
+    <Background imageUrl={'https://wallpapers.com/images/featured/minimalist-7xpryajznty61ra3.jpg'}>
+      <Navbar />
       <div className="container mt-4" style={{ maxWidth: '700px' }}>
         <div className="card p-3 shadow">
           <h2 className="mb-3 text-center">Update Profile</h2>
@@ -141,6 +144,7 @@ function EditStudent() {
 
         </div>
       </div>
+
     </Background>
   );
 }
