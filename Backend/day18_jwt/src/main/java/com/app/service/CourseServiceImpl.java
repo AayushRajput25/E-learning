@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.CourseDao;
+import com.app.dto.CountPerCourseNameDto;
 import com.app.entities.Courses;
 
 
@@ -24,6 +25,12 @@ public class CourseServiceImpl implements CourseService{
 	@Override
 	public List<Courses> getAllCourses() {
 		return cDao.findAll();
+	}
+
+	@Override
+	public List<CountPerCourseNameDto> countPerCname() {
+		// TODO Auto-generated method stub
+		return cDao.countForCourse();
 	}
 
 }

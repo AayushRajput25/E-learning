@@ -50,4 +50,5 @@ public class HomeController {
 		return ResponseEntity.ok(user.getDetialByEmail(email));
 	}
 	
+	
 }
