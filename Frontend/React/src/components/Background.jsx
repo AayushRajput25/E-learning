@@ -1,23 +1,28 @@
 // BackgroundImage.js
-import React from 'react';
-
+import React, { useEffect } from 'react';
 
 const Background = ({ imageUrl, children }) => {
-  const style = {
-    backgroundImage: `url("${imageUrl}")`, // wrap the url in double quotes.
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    height: '100vh',
-    
-  };
+  useEffect(() => {
+    // Set background image on the body or html element
+    document.body.style.backgroundImage = `url("${imageUrl}")`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.backgroundRepeat = 'no-repeat';
+
+    // Clean up the effect when the component is unmounted
+    return () => {
+      document.body.style.backgroundImage = '';
+      document.body.style.backgroundSize = '';
+      document.body.style.backgroundPosition = '';
+      document.body.style.backgroundRepeat = '';
+    };
+  }, [imageUrl]);
 
   return (
-    <div style={style}>
+    <div>
       {children}
     </div>
   );
 };
 
 export default Background;
-

@@ -23,9 +23,11 @@ import {
 import AllStudents from "./AllStudents"
 import AllTeacher from "./AllTeachers"
 import AnalyticsPage from "./AnalyticsPage";
+import Footer from "../components/Footer";
 
 const AdminPanel = () => {
     const email = sessionStorage["email"]
+    const Authorizationn = sessionStorage["Authorization"];
     const [refValue, setRefValue] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [conditionn, setCondition] = useState("-1");
@@ -60,10 +62,39 @@ const AdminPanel = () => {
     const ChangePage = (pageno) => {
         setCondition(pageno)
       }
+
+
+  useEffect(() => {
+    if (email) {
+      axios.get(`http://localhost:8080/home/${email}`, {
+        headers: {
+          "Authorization": Authorizationn
+        }
+      }).then((Response) => {
+        setRefValue(Response.data);
+      });
+    }
+  }, [email, Authorizationn]);
+
+  const handleLogout = () => {
+    // Use a confirm dialog to ask the user if they are sure to logout
+    const confirmLogout = window.confirm('Are you sure you want to logout?');
+    // If the user confirms, perform the logout actions
+    if (confirmLogout) {
+      // logout logic here
+      sessionStorage.removeItem('email');
+      sessionStorage.removeItem('jwt');
+      sessionStorage.removeItem('id');
+      
+      // Redirect to the login page
+      window.location.href = '/login'; // Use this to force a full page reload
+    }
+  };
         
-    return (<div>
-<Navbar color="dark" dark expand="md" className='container-fluid'>
-        <NavbarBrand href="/">E-Learning</NavbarBrand>
+    return (
+    <div>
+{/* <Navbar color="dark" dark expand="md" className='container-fluid'>
+        <NavbarBrand to="http://localhost:3000/Adminpanel">E-Learning</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
@@ -79,7 +110,7 @@ const AdminPanel = () => {
             <UncontrolledDropdown nav inNavbar>
               {/* <DropdownToggle nav caret>
                 Options
-              </DropdownToggle> */}
+              </DropdownToggle> 
               <DropdownMenu right>
                 <DropdownItem>
                   Option 1
@@ -96,11 +127,46 @@ const AdminPanel = () => {
           </Nav>
           <NavbarText>ADMIN PANEL</NavbarText>
         </Collapse>
-      </Navbar>
+      </Navbar> */}
+
+       <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
+        <div className="container">
+          <Link className="navbar-brand"  style={{ color: 'black' }}>E-Learning</Link>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item active">
+                <Link className="nav-link" onClick={()=>ChangePage("0")} style={{ color: 'black' }}>View All Students</Link> 
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" onClick={()=>ChangePage("1")} style={{ color: 'black' }}>View All Teachers</Link> 
+              </li>
+        
+              {!email && (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login" style={{ color: 'black' }}>Login</Link> 
+                </li>
+              )}
+              {email && (
+                <>
+                  <li className="nav-item">
+                    <button className="nav-link" onClick={handleLogout} style={{ border: 'none', background: 'none', cursor: 'pointer', color: 'black' }}>
+                      Logout
+                    </button>
+                  </li>
+                 
+                </>
+              )}
+            </ul>
+          </div>
+        </div>
+      </nav>
 
     
         {YourComponent()}
-
+    
     </div>) ;
 }
 export default AdminPanel

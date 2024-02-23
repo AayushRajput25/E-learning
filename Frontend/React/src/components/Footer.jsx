@@ -1,24 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col } from 'reactstrap'; // Import Reactstrap components
+import { Container, Row, Col } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-light mt-5 py-4">
+    <footer style={{ backgroundColor: '#343a40', color: 'white', marginTop: 'auto', padding: '10px' }}>
       <Container>
-        <Row>
+        <Row className="mb-1">
           <Col md={6}>
-            <div className="mb-4">
-              <h5>E-Learning</h5>
-              <p>A platform for online learning</p>
+            <div>
+              <h5 className="mb-2">E-Learning</h5>
+              <p className="mb-1">Empowering minds through online education.</p>
               <p>&copy; {new Date().getFullYear()} E-Learning. All rights reserved.</p>
-              <p><Link to="/privacy-policy" className="text-light">Privacy Policy</Link> | <Link to="/terms-of-service" className="text-light">Terms of Service</Link></p>
+              <p className="mt-1">
+                <Link to="/privacy" className="text-light">Privacy Policy</Link> | <Link to="/terms" className="text-light">Terms of Service</Link>
+              </p>
             </div>
           </Col>
           <Col md={3}>
-            <div className="mb-4">
-              <h5>Quick Links</h5>
+            <div>
+              <h5 className="mb-3">Quick Links</h5>
               <ul className="list-unstyled">
                 <li><Link to="/" className="text-light">Home</Link></li>
                 <li><Link to="/about" className="text-light">About</Link></li>
@@ -28,21 +30,12 @@ const Footer = () => {
             </div>
           </Col>
           <Col md={3}>
-            <div className="mb-4">
-              <h5>Contact Us</h5>
-              <p>123 E-Learning St.</p>
-              <p>City, Country</p>
-              <p>Email: info@example.com</p>
+            <div>
+              <h5 className="mb-3">Contact Us</h5>
+              <p className="mb-2">Sunbeam Pune</p>
+              <p className="mb-2">Email: E-learning@gmail.com</p>
               <p>Phone: +1234567890</p>
             </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <h5>FAQ</h5>
-            <ul className="list-unstyled">
-              <li><Link to="/faq" className="text-light">Frequently Asked Questions</Link></li>
-            </ul>
           </Col>
         </Row>
       </Container>

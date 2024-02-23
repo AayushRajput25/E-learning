@@ -28,7 +28,7 @@ const Example = (props) => {
   return (
     <div>
       <Navbar color="dark" dark expand="md" className='container-fluid'>
-        <NavbarBrand href="/">reactstrap</NavbarBrand>
+        <NavbarBrand href="/">E-Learning</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
@@ -36,7 +36,7 @@ const Example = (props) => {
             <Link className="nav-link" to="/" onClick={OnLogOut}>Logout</Link>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+              <NavLink href="/teacher_dashboard">Dashboard</NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
@@ -56,7 +56,7 @@ const Example = (props) => {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavbarText>Simple Text</NavbarText>
+          <NavbarText> </NavbarText>
         </Collapse>
       </Navbar>
     </div>

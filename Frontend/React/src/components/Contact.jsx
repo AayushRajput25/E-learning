@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import Background from "./Background";
 
 const purl = "./Pictures/nModi.jpg";
 const linkedinUrl = "https://www.linkedin.com/in/example";
@@ -7,6 +8,8 @@ const githubUrl = "https://github.com/example";
 
 function Contact() {
   return (
+    <Background imageUrl={'https://wallpapers.com/images/featured/minimalist-7xpryajznty61ra3.jpg'}>
+
     <div style={{ backgroundImage: `url(./Pictures/backKliye.png)`, backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh' }}>
       <div className="ContactHeading" style={{ display: "flex", justifyContent: "center", fontSize: "24px", fontWeight: "bold" }}> 
         Contacts
@@ -138,6 +141,7 @@ function Contact() {
         </Container>
               </div>
     </div>
+    </Background>
   );
 }
 

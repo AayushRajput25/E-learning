@@ -5,6 +5,8 @@ import axios from 'axios';
 import Background from '../../components/Background';
 import './StudentDashboard.css';
 import Navbar from '../../components/Navbar';
+import { ToastContainer, toast } from 'react-toastify';
+import Footer from '../../components/Footer';
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
@@ -51,7 +53,7 @@ const StudentDashboard = () => {
   const handleUploadImage = async () => {
     try {
       setIsUploading(true);
-
+      
       const formData = new FormData();
       formData.append('imageFile', selectedFile);
 
@@ -63,9 +65,12 @@ const StudentDashboard = () => {
         },
       }).then(response => {
         if (response.status === 201) {
+          toast.success("Photo Updated!");
           console.log("Photo post ho gaya.");
           console.log(response.data);
+          navigate('/student_dashboard');
         } else {
+          toast.error("Something Went Wrong!");
           console.log("Nhi chala ");
         }
       });
@@ -90,12 +95,13 @@ const StudentDashboard = () => {
   };
 
   return (
-    <Background imageUrl={sessionStorage.getItem('bgimg')}>
+    <>
+    <Background imageUrl={`https://wallpapers.com/images/featured/minimalist-7xpryajznty61ra3.jpg`}>
       <Navbar />
       <div className={`container ${showDeletePrompt ? 'blurred' : ''}`}>
         {studentData && (
           <div className="dashboard-container">
-            <div className="profile-info">
+            <div className="profile-info1">
               <div className="profile-container">
                 <div className="profile-photo">
                   <img
@@ -106,11 +112,11 @@ const StudentDashboard = () => {
                   />
                 </div>
                 <div className="profile-details">
-                  <h2>{studentData.name}</h2>
-                  <p>{studentData.age} years old</p>
-                  <p>{studentData.gender}</p>
-                  <p>{studentData.phoneNo}</p>
-                  <p>{studentData.address}</p>
+                  <h2 className="profile-name">{studentData.name}</h2>
+                  <p className='profile-info-text'>{studentData.age} years old</p>
+                  <p className='profile-info-text'>{studentData.gender}</p>
+                  <p className='profile-info-text'>{studentData.phoneNo}</p>
+                  <p className='profile-info-text'>{studentData.address}</p>
 
                   {!isUploading && (
                   <div className="button-container">
@@ -130,16 +136,16 @@ const StudentDashboard = () => {
             </div>
 
             <div className="action-buttons">
-              <Link to="/edit_student" className="action-div white-bg">
+              <Link to="/edit_student" className="action-div primary-bg">
                 Edit Profile
               </Link>
-              <Link to="/home" className="action-div white-bg">
+              <Link to="/home" className="action-div primary-bg">
                 Get All Courses
               </Link>
-              <Link to="/my_courses" className="action-div white-bg">
+              <Link to="/my_courses" className="action-div primary-bg">
                 My Courses
               </Link>
-              <button className="action-div white-bg" onClick={() => setShowDeletePrompt(true)}>
+              <button className="action-div primary-bg" onClick={() => setShowDeletePrompt(true)}>
                 Delete Account
               </button>
             </div>
@@ -148,13 +154,16 @@ const StudentDashboard = () => {
 
         {showDeletePrompt && (
           <div className="delete-prompt">
-            <p>Are you sure you want to delete your account?</p>
+            <p className="delete-prompt-text">Are you sure you want to delete your account?</p>
             <button className="btn btn-secondary" onClick={() => setShowDeletePrompt(false)}>Cancel</button>
             <button className="btn btn-danger" onClick={handleDeleteAccount}>Confirm</button>
           </div>
         )}
       </div>
+      {/* <ToastContainer /> */}
+
     </Background>
+    </>
   );
 };
 

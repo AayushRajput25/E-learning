@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Background from '../components/Background';
 import '../Pages/StudentPages/StudentDashboard.css';
-const Dashboard = () => {
+const TeacherDashboard = () => {
     const navigate = useNavigate();
   const [studentData, setStudentData] = useState(null);
   const [fetchedStudentData, setFetchedStudentData] = useState(null);
@@ -129,10 +129,10 @@ return (<div>
                 Edit Profile
               </Link>
               <Link to="/home" className="action-div white-bg">
-                Get All Courses
+                View My Courses
               </Link>
               <Link to="/my_courses" className="action-div white-bg">
-                My Courses
+                View Students
               </Link>
               <button className="action-div white-bg" onClick={() => setShowDeletePrompt(true)}>
                 Delete Account
@@ -153,4 +153,4 @@ return (<div>
 </div>)
 
 }
-export default Dashboard;
+export default TeacherDashboard;

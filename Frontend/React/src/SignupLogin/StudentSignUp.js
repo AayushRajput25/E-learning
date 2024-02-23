@@ -3,6 +3,7 @@ import { Col, Button, Form, FormGroup, Label, Input, FormText, Container, CardHe
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Background from '../components/Background';
 const SignUp = (props) => {
 
   const[data, setdata] = useState({
@@ -40,6 +41,8 @@ setdata({...data, [property]:event.target.value})
 
   return (
     <div>
+    <Background imageUrl={'https://wallpapers.com/images/hd/ipad-air-2-pokheo6zb9dxpl3w.jpg'}>
+
       <Container>
           <Card>
           <CardHeader> <h1 className='text-center my-2'>Sign Up for Student</h1></CardHeader>
@@ -58,14 +61,14 @@ setdata({...data, [property]:event.target.value})
       <FormGroup row>
         <Label for="exampleEmail" sm={2}>Email</Label>
         <Col sm={10}>
-          <Input type="email" name="email" id="exampleEmail" placeholder="Enter your Email here" 
+          <Input type="email" name="email" required id="exampleEmail" placeholder="Enter your Email here" 
            onChange={(e)=>handleChange(e, 'email')} value={data.email}/>
         </Col>
       </FormGroup>
       <FormGroup row>
         <Label for="examplePassword" sm={2}>Password</Label>
         <Col sm={10}>
-          <Input type="password" name="password" id="examplePassword" placeholder="Enter your Password here"
+          <Input type="password" required name="password" id="examplePassword" placeholder="Enter your Password here"
           onChange={(e)=>handleChange(e, 'password')} value={data.password} />
         </Col>
       </FormGroup>
@@ -75,6 +78,7 @@ setdata({...data, [property]:event.target.value})
         <Input
           type="text"
           name="number"
+          required
           id="exampleNumber"
           placeholder="Enter your Phone no. here"
           onChange={(e)=>handleChange(e, 'phoneNo')} value={data.phoneNo}
@@ -85,7 +89,7 @@ setdata({...data, [property]:event.target.value})
       <FormGroup row>
         <Label for="exampleText" sm={2}>Address</Label>
         <Col sm={10}>
-          <Input type="textarea" name="text" id="exampleText" 
+          <Input type="textarea" name="text" id="exampleText" required
           onChange={(e)=>handleChange(e, 'address')} value={data.address} />
         </Col>
       </FormGroup>
@@ -102,11 +106,12 @@ setdata({...data, [property]:event.target.value})
       </FormGroup> */}
 
 <FormGroup>
-        <Label for="age">Number</Label>
+        <Label for="age">Age</Label>
         <Input
           type="number"
           name="number"
           id="age"
+          required
           placeholder="Enter your Age here"
           onChange={(e)=>handleChange(e, 'age')}
           value={data.age}
@@ -130,21 +135,22 @@ setdata({...data, [property]:event.target.value})
     </select>
       </FormGroup>
     
-      <FormGroup>
+      {/* <FormGroup>
         <Label for="exampleDate">Date</Label>
         <Input
           type="date"
           name="date"
+          required
           id="exampleDate"
           placeholder="date placeholder"
         />
-      </FormGroup>
+      </FormGroup> */}
 
       <FormGroup row>
         <Label for="checkbox2" sm={3}>I agree to terms and conditions</Label>
           <FormGroup check>
             <Label check>
-              <Input type="checkbox" id="checkbox2" />{' '}
+              <Input type="checkbox" id="checkbox2" required/>{' '}
               Agree
             </Label>
           </FormGroup>
@@ -161,6 +167,7 @@ setdata({...data, [property]:event.target.value})
     </CardBody>
     </Card>
     </Container>
+    </ Background>
     </div>
   );
 }

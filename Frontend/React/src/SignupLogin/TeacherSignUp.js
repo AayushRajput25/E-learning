@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Button, Form, FormGroup, Label, Input, FormText, Container, CardHeader, CardBody, Card } from 'reactstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Background from '../components/Background';
 
 const TeacherSignUp = (props) => {
   const[data, setdata] = useState({
@@ -36,7 +37,8 @@ setdata({...data, [property]:event.target.value})
 
   return (
     <div>
-
+    <Background imageUrl={'https://wallpapers.com/images/hd/ipad-air-2-pokheo6zb9dxpl3w.jpg'}>
+      
       <Container>
           <Card>
           <CardHeader> <h1 className='text-center my-2'>Sign Up for Teacher</h1></CardHeader>
@@ -47,20 +49,20 @@ setdata({...data, [property]:event.target.value})
     <FormGroup row>
         <Label for="name" sm={2}>Full Name</Label>
         <Col sm={10}>
-          <Input type="text" id="firstName" placeholder="Enter your Name here" onChange={(e)=>handleChange(e, 'name')} value={data.firstName}/>
+          <Input type="text" id="firstName" placeholder="Enter your Name here" required  onChange={(e)=>handleChange(e, 'name')} value={data.firstName}/>
         </Col>
       </FormGroup>
 
       <FormGroup row>
         <Label for="email" sm={2}>Email</Label>
         <Col sm={10}>
-          <Input type="email" id="email" placeholder="Enter your Email here" onChange={(e)=>handleChange(e, 'email')} value={data.email}/>
+          <Input type="email" id="email"  placeholder="Enter your Email here" required onChange={(e)=>handleChange(e, 'email')} value={data.email}/>
         </Col>
       </FormGroup>
       <FormGroup row>
         <Label for="password" sm={2}>Password</Label>
         <Col sm={10}>
-          <Input type="password" id="password" placeholder="Enter your Password here" onChange={(e)=>handleChange(e, 'password')} value={data.password}/>
+          <Input type="password" id="password" placeholder="Enter your Password here" required onChange={(e)=>handleChange(e, 'password')} value={data.password}/>
         </Col>
       </FormGroup>
     
@@ -68,28 +70,28 @@ setdata({...data, [property]:event.target.value})
       <FormGroup row>
         <Label for="address" sm={2}>Address</Label>
         <Col sm={10}>
-          <Input type="textarea"  id="address" onChange={(e)=>handleChange(e, 'address')} value={data.address}/>
+          <Input type="textarea"  id="address" required onChange={(e)=>handleChange(e, 'address')} value={data.address}/>
         </Col>
       </FormGroup>
 
       <FormGroup row>
         <Label for="Degree" sm={2}>Degree</Label>
         <Col sm={10}>
-          <Input type="text" id="degree" placeholder="Enter your Degree here" onChange={(e)=>handleChange(e, 'degree')} value={data.degree}/>
+          <Input type="text" id="degree" placeholder="Enter your Degree here" required onChange={(e)=>handleChange(e, 'degree')} value={data.degree}/>
         </Col>
       </FormGroup>
 
       <FormGroup row>
         <Label for="name" sm={2}>Specialization</Label>
         <Col sm={10}>
-          <Input type="text" id="specialization" placeholder="Enter your specialization here" onChange={(e)=>handleChange(e, 'specialization')} value={data.specialization}/>
+          <Input type="text" id="specialization" required placeholder="Enter your specialization here" onChange={(e)=>handleChange(e, 'specialization')} value={data.specialization}/>
         </Col>
       </FormGroup>
       
       <FormGroup row>
         <Label for="exampleFile" sm={2}>Photo</Label>
         <Col sm={10}>
-          <Input type="file" name="file" id="exampleFile" />
+          <Input type="file" name="file" required id="exampleFile" />
           <FormText color="muted">
             This is some placeholder block-level help text for the above input.
             It's a bit lighter and easily wraps to a new line.
@@ -121,21 +123,12 @@ setdata({...data, [property]:event.target.value})
         </Col>
       </FormGroup>
 
-      <FormGroup>
-        <Label for="exampleDate">Date</Label>
-        <Input
-          type="date"
-          name="date"
-          id="exampleDate"
-          placeholder="date placeholder"
-        />
-      </FormGroup>
 
       <FormGroup row>
         <Label for="checkbox2" sm={3}>I agree to terms and conditions</Label>
           <FormGroup check>
             <Label check>
-              <Input type="checkbox" id="checkbox2" />{' '}
+              <Input type="checkbox" id="checkbox2" required />{' '}
               Agree
             </Label>
           </FormGroup>
@@ -152,6 +145,7 @@ setdata({...data, [property]:event.target.value})
     </CardBody>
     </Card>
     </Container>
+    </Background>
     </div>
   );
 }

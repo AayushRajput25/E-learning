@@ -1,6 +1,7 @@
 import React from 'react';
 import './css/CourseCard.css'; // Import the external CSS file
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 const CourseCard = ({ title, description, courseId, kaam }) => {
   const handleEnroll = async () => {
@@ -8,11 +9,11 @@ const CourseCard = ({ title, description, courseId, kaam }) => {
     if (studentId != null || sessionStorage.getItem('jwt') != null) {
       try {
         await axios.post(`http://localhost:8080/student/enroll/${studentId}/${courseId}`);
-        // Add logic for successful enrollment, e.g., show a message to the user
         console.log(`Enrolled in course ${courseId}`);
+        toast.success("Successfully Enrolled!");
       } catch (error) {
         console.error('Error enrolling in the course:', error);
-        // Handle the error, e.g., show an error message to the user
+        toast.error("Something Went Wrong!");
       }
     }
   };
@@ -29,6 +30,7 @@ const CourseCard = ({ title, description, courseId, kaam }) => {
           <span className="badge bg-info text-white">Free</span>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

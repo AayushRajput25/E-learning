@@ -34,7 +34,7 @@ import TecherDashboard from "./TecherDashboard"
 const Teacher = () => {
 const [refValue, setRefValue] = useState("");
 const [conditionn, setCondition] = useState("-1");
-const email = sessionStorage["email"]
+const email = sessionStorage["email"] //save email in session
 const Authorizationn = sessionStorage["Authorization"]
 console.log(Authorizationn)
 useEffect(() => {
@@ -75,6 +75,7 @@ return <FetchStudents/>
       }
     }
   
+    console.log(refValue)
 
 return(
     <div>
@@ -114,7 +115,7 @@ return(
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavbarText>{refValue.name}</NavbarText>
+          <NavbarText>|{ ' '} Welcome {' '} {refValue.name} { ' '}|</NavbarText>
         </Collapse>
       </Navbar>
       <Header/>
